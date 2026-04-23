@@ -1,26 +1,288 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0b0e18;
+  --foreground: #f7f4ff;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-ink-950: #0d111b;
+  --color-ink-900: #151b2c;
+  --color-ink-800: #1d2639;
+  --color-ink-700: #334155;
+  --color-mist-50: #faf8ff;
+  --color-mist-100: #f0eff8;
+  --color-mist-200: #dddae9;
+  --color-mist-300: #bbb8cf;
+  --color-mist-400: #948fa8;
+  --color-lavender-100: #ece7ff;
+  --color-lavender-300: #bda7ff;
+  --color-lavender-400: #a78dff;
+  --color-lavender-500: #8d69ff;
+  --color-spirit-100: #e7fbff;
+  --color-spirit-200: #bfefff;
+  --color-spirit-300: #79c4ff;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
 }
 
 body {
+  min-width: 320px;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-feature-settings:
+    "rlig" 1,
+    "calt" 1;
+  background-image:
+    radial-gradient(circle at top, rgb(150 112 255 / 0.16), transparent 28%),
+    radial-gradient(circle at 16% 18%, rgb(121 196 255 / 0.12), transparent 18%),
+    radial-gradient(circle at 84% 14%, rgb(95 226 214 / 0.08), transparent 16%),
+    linear-gradient(180deg, #080b14 0%, #101423 34%, #14192a 68%, #0a0d16 100%);
+}
+
+button,
+textarea,
+input {
+  font: inherit;
+}
+
+.choice-pill {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.95rem;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.12), rgb(255 255 255 / 0.05)),
+    linear-gradient(135deg, rgb(116 129 185 / 0.08), rgb(171 152 255 / 0.04));
+  padding: 0.625rem 0.75rem;
+  color: #f0eff8;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.choice-pill:has(input:checked) {
+  border-color: rgb(191 239 255 / 0.72);
+  background:
+    linear-gradient(180deg, rgb(191 239 255 / 0.18), rgb(167 141 255 / 0.12)),
+    linear-gradient(135deg, rgb(235 241 255 / 0.16), rgb(108 164 255 / 0.08));
+  color: #faf8ff;
+  box-shadow:
+    0 0 0 1px rgb(191 239 255 / 0.18),
+    0 16px 36px rgb(0 0 0 / 0.22);
+  transform: translateY(-1px);
+}
+
+.choice-pill:hover {
+  border-color: rgb(255 255 255 / 0.2);
+  box-shadow: 0 12px 28px rgb(0 0 0 / 0.16);
+}
+
+.choice-pill input {
+  height: 1rem;
+  width: 1rem;
+  accent-color: #bfefff;
+}
+
+.ghost-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 1rem;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.09), rgb(255 255 255 / 0.04)),
+    linear-gradient(135deg, rgb(154 132 255 / 0.07), rgb(91 192 255 / 0.03));
+  padding: 0.75rem 1rem;
+  color: #f0eff8;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.ghost-button:hover {
+  border-color: rgb(255 255 255 / 0.28);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.12), rgb(255 255 255 / 0.06)),
+    linear-gradient(135deg, rgb(154 132 255 / 0.08), rgb(91 192 255 / 0.04));
+  box-shadow: 0 16px 34px rgb(0 0 0 / 0.2);
+}
+
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 1.05rem;
+  border: 1px solid rgb(191 239 255 / 0.25);
+  background:
+    linear-gradient(135deg, rgb(233 241 255 / 0.96), rgb(198 239 255 / 0.94) 38%, rgb(170 149 255 / 0.84)),
+    linear-gradient(180deg, rgb(255 255 255 / 0.4), rgb(255 255 255 / 0));
+  padding: 0.95rem 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #111625;
+  box-shadow:
+    0 20px 48px rgb(0 0 0 / 0.22),
+    inset 0 1px 0 rgb(255 255 255 / 0.56),
+    inset 0 -10px 20px rgb(73 40 159 / 0.08);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    filter 160ms ease;
+}
+
+.primary-button:hover {
+  transform: translateY(-1px);
+  filter: saturate(1.03);
+  box-shadow:
+    0 24px 56px rgb(0 0 0 / 0.26),
+    inset 0 1px 0 rgb(255 255 255 / 0.58),
+    inset 0 -10px 20px rgb(73 40 159 / 0.1);
+}
+
+.primary-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  transform: none;
+  filter: none;
+  box-shadow:
+    0 10px 24px rgb(0 0 0 / 0.16),
+    inset 0 1px 0 rgb(255 255 255 / 0.42);
+}
+
+.ritual-panel {
+  border: 1px solid rgb(255 255 255 / 0.12);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.04)),
+    linear-gradient(135deg, rgb(20 26 44 / 0.84), rgb(13 16 28 / 0.92));
+  box-shadow:
+    0 22px 56px rgb(0 0 0 / 0.22),
+    inset 0 1px 0 rgb(255 255 255 / 0.04);
+  backdrop-filter: blur(20px);
+}
+
+.ritual-subpanel {
+  border: 1px solid rgb(255 255 255 / 0.1);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.035)),
+    linear-gradient(135deg, rgb(22 28 45 / 0.78), rgb(11 15 26 / 0.86));
+  box-shadow:
+    0 16px 42px rgb(0 0 0 / 0.2),
+    inset 0 1px 0 rgb(255 255 255 / 0.03);
+  backdrop-filter: blur(18px);
+}
+
+.ritual-paper {
+  border: 1px solid rgb(233 238 255 / 0.58);
+  background:
+    linear-gradient(180deg, rgb(248 245 255 / 0.96), rgb(232 236 247 / 0.92)),
+    radial-gradient(circle at top, rgb(255 255 255 / 0.42), transparent 56%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.82),
+    0 24px 56px rgb(0 0 0 / 0.2);
+}
+
+.result-paper {
+  border: 1px solid rgb(218 226 244 / 0.32);
+  background:
+    linear-gradient(180deg, rgb(220 228 242 / 0.56), rgb(194 204 223 / 0.48)),
+    radial-gradient(circle at top, rgb(255 255 255 / 0.16), transparent 56%),
+    linear-gradient(135deg, rgb(174 188 218 / 0.08), rgb(136 149 181 / 0.04));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.26),
+    0 20px 44px rgb(0 0 0 / 0.16);
+  backdrop-filter: blur(18px);
+}
+
+.result-prose {
+  color: #101d34;
+  font-size: 1rem;
+  line-height: 1.88;
+  font-weight: 510;
+  letter-spacing: 0.002em;
+}
+
+.result-prose > p + p {
+  margin-top: 0.9rem;
+}
+
+.result-heading {
+  color: #0b1426;
+  font-size: 1.08rem;
+  font-weight: 680;
+  letter-spacing: 0.01em;
+}
+
+.result-sidepanel {
+  border: 1px solid rgb(255 255 255 / 0.08);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.065), rgb(255 255 255 / 0.025)),
+    linear-gradient(135deg, rgb(18 25 40 / 0.72), rgb(10 14 24 / 0.82));
+  box-shadow:
+    0 14px 34px rgb(0 0 0 / 0.16),
+    inset 0 1px 0 rgb(255 255 255 / 0.03);
+  backdrop-filter: blur(16px);
+}
+
+.ritual-soft-card {
+  border: 1px solid rgb(255 255 255 / 0.08);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.02)),
+    linear-gradient(135deg, rgb(20 26 44 / 0.34), rgb(10 13 22 / 0.42));
+  box-shadow:
+    0 12px 30px rgb(0 0 0 / 0.14),
+    inset 0 1px 0 rgb(255 255 255 / 0.03);
+  backdrop-filter: blur(16px);
+}
+
+.section-kicker {
+  color: #bbb8cf;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+}
+
+.section-title {
+  color: #faf8ff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 640px) {
+  .primary-button,
+  .ghost-button {
+    width: 100%;
+  }
+
+  .choice-pill {
+    min-height: 3rem;
+  }
+
+  .result-prose {
+    font-size: 0.97rem;
+    line-height: 1.8;
+  }
+
+  .result-prose > p + p {
+    margin-top: 0.8rem;
+  }
 }
