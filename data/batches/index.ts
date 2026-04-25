@@ -19,6 +19,11 @@ import { batch18 } from "./batch-18";
 import { batch19 } from "./batch-19";
 import { batch20 } from "./batch-20";
 import { batch21 } from "./batch-21";
+import { batch22 } from "./batch-22";
+import { batch23 } from "./batch-23";
+import { batch24 } from "./batch-24";
+import { batch25 } from "./batch-25";
+import { batch26 } from "./batch-26";
 
 export const motifBatches = [
   batch01,
@@ -42,6 +47,11 @@ export const motifBatches = [
   batch19,
   batch20,
   batch21,
+  batch22,
+  batch23,
+  batch24,
+  batch25,
+  batch26,
 ] as const;
 
 export const productionMotifs = motifBatches.flatMap((batch) => batch.motifs);

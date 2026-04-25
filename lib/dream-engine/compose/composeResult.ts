@@ -1,4 +1,10 @@
-import { axisCompositionBlocks, fallbackBlocks } from "@/data/rules/composition";
+import {
+  axisCompositionBlocks,
+  axisEncouragementBlocks,
+  fallbackBlocks,
+  impressionEncouragementOpeners,
+} from "@/data/rules/composition";
+import { motifPairBlocks } from "@/data/rules/motifPairs";
 import { blocksByMotifId, motifRegistry } from "@/data/motifs";
 import type {
   DreamInput,
@@ -18,6 +24,7 @@ const sections: InterpretationSection[] = [
   "fortune",
   "caution",
   "actionHint",
+  "encouragement",
 ];
 
 function uniqueSentences(sentences: string[], limit: number): string[] {
@@ -73,21 +80,57 @@ function collectAnswerHintBlocks(
   });
 }
 
+function collectPairBlocks(
+  selectedMotifs: MotifDefinition[],
+  section: InterpretationSection,
+): string[] {
+  const selectedIds = new Set(selectedMotifs.map((m) => m.id));
+
+  return motifPairBlocks
+    .filter(({ motifIds }) => motifIds.every((id) => selectedIds.has(id)))
+    .flatMap(({ blocks }) => {
+      const block = blocks[section];
+      return block ? [block] : [];
+    });
+}
+
+function composeEncouragement(
+  input: DreamInput,
+  dominantAxes: ScoreAxis[],
+): string[] {
+  const opener = impressionEncouragementOpeners[input.impression];
+  // 最支配軸1つだけ — 複数並べると説教的になるため絞る
+  const axisMessage = dominantAxes[0] ? axisEncouragementBlocks[dominantAxes[0]] : null;
+  const fallback = fallbackBlocks.encouragement[0];
+
+  const candidates = [opener, axisMessage, fallback].filter((s): s is string => Boolean(s));
+  return uniqueSentences(candidates, 2);
+}
+
 function composeSections(
+  input: DreamInput,
   selectedMotifs: MotifDefinition[],
   dominantAxes: ScoreAxis[],
   answers: QuestionAnswer[],
 ): InterpretationResult["sections"] {
   return sections.reduce((result, section) => {
+    if (section === "encouragement") {
+      return {
+        ...result,
+        encouragement: composeEncouragement(input, dominantAxes),
+      };
+    }
+
     const motifBlocks = collectMotifBlocks(selectedMotifs, section);
-    const axisBlocks = collectAxisBlocks(dominantAxes, section);
     const answerHintBlocks = collectAnswerHintBlocks(answers, section);
+    const axisBlocks = collectAxisBlocks(dominantAxes, section);
+    const pairBlocks = collectPairBlocks(selectedMotifs, section);
     const fallback = fallbackBlocks[section];
 
     return {
       ...result,
       [section]: uniqueSentences(
-        [...axisBlocks, ...answerHintBlocks, ...motifBlocks, ...fallback],
+        [...answerHintBlocks, ...motifBlocks, ...pairBlocks, ...axisBlocks, ...fallback],
         section === "summary" ? 3 : 4,
       ),
     };
@@ -106,6 +149,6 @@ export function composeInterpretation(
     selectedMotifs,
     scores,
     dominantAxes,
-    sections: composeSections(selectedMotifs, dominantAxes, answers),
+    sections: composeSections(input, selectedMotifs, dominantAxes, answers),
   };
 }

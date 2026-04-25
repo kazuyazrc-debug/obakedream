@@ -10,8 +10,8 @@ export const batch01Aliases: MotifLexiconEntry[] = [
   {
     motifId: "water",
     aliases: ["水", "雨", "川", "池", "湖", "洪水", "水たまり"],
-    priorityKeywords: ["水に入る", "水が濁る", "水があふれる", "水に流される"],
-    secondaryKeywords: ["濡れる", "透明", "濁った", "流れ", "深い"],
+    priorityKeywords: ["水に入る", "水が濁る", "水があふれる", "水に流される", "水の中にいた", "水の中を歩く", "水があふれてきた", "水に浸かっている", "水に囲まれていた"],
+    secondaryKeywords: ["濡れる", "透明", "濁った", "流れ", "深い", "冷たい水", "水が増えてくる"],
   },
   {
     motifId: "sea",
@@ -22,8 +22,8 @@ export const batch01Aliases: MotifLexiconEntry[] = [
   {
     motifId: "house",
     aliases: ["家", "部屋", "住まい", "自宅", "マンション", "アパート"],
-    priorityKeywords: ["家に帰る", "家が壊れる", "知らない家", "家を探す"],
-    secondaryKeywords: ["玄関", "屋根", "台所", "寝室", "窓"],
+    priorityKeywords: ["家に帰る", "家が壊れる", "知らない家", "家を探す", "知らない家にいた", "家に帰れない", "家を探している", "見たことのない家", "誰かの家にいた"],
+    secondaryKeywords: ["玄関", "屋根", "台所", "寝室", "窓", "鍵がかからない", "部屋が広い", "廊下が続く"],
   },
   {
     motifId: "childhood_home",
@@ -34,8 +34,8 @@ export const batch01Aliases: MotifLexiconEntry[] = [
   {
     motifId: "school",
     aliases: ["学校", "教室", "体育館", "校庭", "大学", "高校", "中学", "小学校"],
-    priorityKeywords: ["学校に行く", "授業を受ける", "教室にいる"],
-    secondaryKeywords: ["先生", "黒板", "宿題", "制服"],
+    priorityKeywords: ["学校に行く", "授業を受ける", "教室にいる", "また学校の夢", "学校に戻っている", "学校に行かないといけない", "卒業したはずなのに学校にいた", "学校の廊下にいた"],
+    secondaryKeywords: ["先生", "黒板", "宿題", "制服", "クラスメート", "給食の時間", "時間割"],
   },
   {
     motifId: "friend",
@@ -58,14 +58,14 @@ export const batch01Aliases: MotifLexiconEntry[] = [
   {
     motifId: "being_chased",
     aliases: ["追われる", "追われ", "追いかけられる", "逃げる", "追跡される"],
-    priorityKeywords: ["誰かに追われる", "逃げても追ってくる", "追いかけられて怖い", "足音がついてくる", "足音がついてきて", "後ろから足音がする", "誰かに追いかけられて走って逃げた", "追いかけられて走って逃げた"],
-    secondaryKeywords: ["隠れる", "捕まる", "全力で走る", "逃亡"],
+    priorityKeywords: ["誰かに追われる", "逃げても追ってくる", "追いかけられて怖い", "足音がついてくる", "足音がついてきて", "後ろから足音がする", "誰かに追いかけられて走って逃げた", "追いかけられて走って逃げた", "なんか追われてる", "追われてる感じ", "後ろから追いかけてくる", "ずっと逃げていた", "逃げ続ける"],
+    secondaryKeywords: ["隠れる", "捕まる", "全力で走る", "逃亡", "後ろが気になる", "誰かがいる気がする"],
   },
   {
     motifId: "falling",
     aliases: ["落ちる", "落下", "転落", "滑り落ちる"],
-    priorityKeywords: ["高い所から落ちる", "階段から落ちる", "穴に落ちる"],
-    secondaryKeywords: ["崖", "踏み外す", "落ちそう", "急降下"],
+    priorityKeywords: ["高い所から落ちる", "階段から落ちる", "穴に落ちる", "落ちていく感覚", "ずっと落ちていく", "落ちた気がした", "どこまでも落ちる"],
+    secondaryKeywords: ["崖", "踏み外す", "落ちそう", "急降下", "底が見えない", "落ちていった"],
   },
   {
     motifId: "flying",

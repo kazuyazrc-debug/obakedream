@@ -46,17 +46,24 @@ export function FollowUpQuestions({
               <legend className="px-1 text-sm text-mist-300">質問 {index + 1}</legend>
               <p className="mb-4 font-medium leading-7 text-mist-50">{question.prompt}</p>
               <div className="grid gap-2.5 sm:grid-cols-3">
-                {question.options.map((option) => (
-                  <label key={option.id} className="choice-pill justify-start">
-                    <input
-                      type="radio"
-                      name={question.id}
-                      checked={current?.optionIds.includes(option.id) ?? false}
-                      onChange={() => onAnswer({ questionId: question.id, optionIds: [option.id] })}
-                    />
-                    <span>{option.label}</span>
-                  </label>
-                ))}
+                {question.options.map((option) => {
+                  const isChecked = current?.optionIds.includes(option.id) ?? false;
+
+                  return (
+                    <label
+                      key={option.id}
+                      className={`choice-pill justify-start${isChecked ? " choice-pill--selected" : ""}`}
+                    >
+                      <input
+                        type="radio"
+                        name={question.id}
+                        checked={isChecked}
+                        onChange={() => onAnswer({ questionId: question.id, optionIds: [option.id] })}
+                      />
+                      <span>{option.label}</span>
+                    </label>
+                  );
+                })}
               </div>
             </fieldset>
           );

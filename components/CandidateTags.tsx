@@ -81,19 +81,37 @@ export function CandidateTags({
         </div>
       ) : (
         <div className="ritual-subpanel rounded-[1.4rem] p-5 text-mist-200 md:p-6">
-          <p>まだ強く拾えた候補が少ないため、今回は補助項目をもとに穏やかに読みます。</p>
-          <p className="mt-3 text-sm leading-6 text-mist-300">
-            短く書いてもOK / 長く書いてもOKです。気になる場面や登場物を一つ足して再入力すると、候補が出やすくなります。
-          </p>
+          <p className="font-medium text-mist-100">夢の言葉をそのまま書いてくれれば、ちゃんと読み解けます。</p>
           <p className="mt-2 text-sm leading-6 text-mist-300">
-            例: 「駅で電車に乗り遅れそうで焦った」「学校の廊下を歩いていた」「元恋人と駅前で再会した」
+            場面・登場したもの・感じた気持ちを一つ足して再入力すると、候補が出やすくなります。
           </p>
+
+          <div className="mt-4 rounded-xl border border-white/8 bg-white/4 p-4">
+            <p className="mb-3 text-xs font-medium tracking-wider text-mist-400">こんなキーワードがあると読みやすくなります</p>
+            <div className="space-y-2.5">
+              {[
+                { label: "動物", examples: ["蛇", "犬", "猫", "魚", "鳥", "虫"] },
+                { label: "場所", examples: ["学校", "家", "海", "山", "駅", "病院"] },
+                { label: "人物", examples: ["家族", "友人", "恋人", "知らない人", "子供"] },
+                { label: "行動", examples: ["逃げる", "飛ぶ", "落ちる", "探す", "追われる"] },
+              ].map(({ label, examples }) => (
+                <div key={label} className="flex items-start gap-2.5">
+                  <span className="mt-0.5 shrink-0 rounded-md bg-white/8 px-2 py-0.5 text-xs text-mist-400">{label}</span>
+                  <span className="text-xs leading-5 text-mist-300">{examples.join("・")}</span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 text-xs leading-5 text-mist-400">
+              例: 「駅で電車に乗り遅れそうで焦った」「学校の廊下を歩いていた」「元恋人と駅前で再会した」
+            </p>
+          </div>
+
           <div className="mt-5">
-            <p className="mb-3 text-sm font-medium text-mist-200">
+            <p className="mb-1.5 text-sm font-medium text-mist-200">
               よくある夢のテーマから近いものを選ぶこともできます
             </p>
-            <p className="mb-3 text-sm leading-6 text-mist-300">
-              ぴったり一致していなくても大丈夫です。近い印象のものを、複数選んで進めます。
+            <p className="mb-3 text-xs leading-5 text-mist-400">
+              ぴったり一致していなくても大丈夫です。近い印象のものを複数選んで進んでください。
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
               {fallbackMotifOptions.map((option) => {

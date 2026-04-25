@@ -59,7 +59,8 @@ export type InterpretationSection =
   | "psychology"
   | "fortune"
   | "caution"
-  | "actionHint";
+  | "actionHint"
+  | "encouragement";
 
 export type InterpretationBlocks = Record<InterpretationSection, string[]>;
 
@@ -93,7 +94,7 @@ export type MotifLexiconEntry = {
 
 export type MotifBlockEntry = {
   motifId: string;
-  blocks: InterpretationBlocks;
+  blocks: Partial<InterpretationBlocks>;
 };
 
 export type ExtractedMotif = {

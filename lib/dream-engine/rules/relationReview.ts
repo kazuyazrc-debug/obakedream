@@ -1005,11 +1005,11 @@ function detectRelationType(source: MotifDefinition, targetId: string): Relation
 export function classifyRelationCluster(sourceId: string, targetId: string): RelationPriorityCluster {
   const ids = new Set([sourceId, targetId]);
 
-  if ([...ids].some((id) => ["water", "sea", "rain", "river", "snow", "thunder", "wind", "fish", "cloud", "rainbow", "lake", "pond", "fog", "wave", "ice", "swimming", "soap", "towel", "washing", "shell", "dew", "raindrop", "waterweed", "driftwood"].includes(id))) {
+  if ([...ids].some((id) => ["water", "sea", "rain", "river", "snow", "thunder", "wind", "fish", "cloud", "rainbow", "lake", "pond", "fog", "wave", "ice", "swimming", "soap", "towel", "washing", "shell", "dew", "raindrop", "waterweed", "driftwood", "earthquake", "tsunami", "storm", "flood"].includes(id))) {
     return "water-weather";
   }
 
-  if ([...ids].some((id) => ["house", "childhood_home", "hotel", "key", "toilet", "mirror", "shrine", "shop", "library", "park", "door", "restaurant", "cafe", "convenience_store", "cinema", "window", "rooftop", "hot_spring", "kitchen", "garden", "hallway", "balcony", "entrance", "storage_room"].includes(id))) {
+  if ([...ids].some((id) => ["house", "childhood_home", "hotel", "key", "toilet", "mirror", "shrine", "shop", "library", "park", "door", "restaurant", "cafe", "convenience_store", "cinema", "window", "rooftop", "hot_spring", "kitchen", "garden", "hallway", "balcony", "entrance", "storage_room", "power_outage", "moving_house"].includes(id))) {
     return "home-place";
   }
 
@@ -1021,7 +1021,7 @@ export function classifyRelationCluster(sourceId: string, targetId: string): Rel
     return "communication";
   }
 
-  if ([...ids].some((id) => ["friend", "family", "stranger", "ex_partner", "crush", "breakup", "ring", "boss", "workplace", "child", "teacher", "neighbor", "coworker", "classmate"].includes(id))) {
+  if ([...ids].some((id) => ["friend", "family", "stranger", "ex_partner", "crush", "breakup", "ring", "boss", "workplace", "child", "teacher", "neighbor", "coworker", "classmate", "partner", "rival", "senior", "junior", "relative", "roommate", "customer", "guide", "ancestor", "mentor", "teammate", "bully", "client", "old_friend", "childhood_friend", "leader", "subordinate", "shop_clerk", "guest", "rescuer", "judge", "witness", "captain", "former_classmate", "former_coworker", "online_friend", "police_officer", "admirer", "driver", "landlord", "mediator", "being_fired", "resignation", "wedding", "argument", "reunion", "promotion"].includes(id))) {
     return "relationship";
   }
 
@@ -1029,7 +1029,7 @@ export function classifyRelationCluster(sourceId: string, targetId: string): Rel
     return "body-appearance";
   }
 
-  if ([...ids].some((id) => ["crying", "laughing", "apologizing", "being_chased", "fighting", "hiding", "searching", "waiting", "lost", "picking_up", "choosing", "opening", "screaming", "forgetting", "running", "cleaning", "tidying", "losing", "handing_over", "embracing", "being_late", "exam", "sleep", "breaking", "making_mistake", "refusing", "lining_up", "tripping", "inviting", "concealing", "cooking", "festival", "writing", "dancing", "packing", "folding", "carrying", "singing", "reading", "tying", "wiping", "wrapping", "unpacking", "carving", "footsteps", "hesitating", "backing_away", "flinching", "tiptoeing", "holding_back", "double_checking"].includes(id))) {
+  if ([...ids].some((id) => ["crying", "laughing", "apologizing", "being_chased", "fighting", "hiding", "searching", "waiting", "lost", "picking_up", "choosing", "opening", "screaming", "forgetting", "running", "cleaning", "tidying", "losing", "handing_over", "embracing", "being_late", "exam", "sleep", "breaking", "making_mistake", "refusing", "lining_up", "tripping", "inviting", "concealing", "cooking", "festival", "writing", "dancing", "packing", "folding", "carrying", "singing", "reading", "tying", "wiping", "wrapping", "unpacking", "carving", "footsteps", "hesitating", "backing_away", "flinching", "tiptoeing", "holding_back", "double_checking", "being_trapped", "paralysis", "transformation", "pregnancy", "graduation"].includes(id))) {
     return "emotion-action";
   }
 
@@ -1041,7 +1041,7 @@ export function classifyRelationCluster(sourceId: string, targetId: string): Rel
     return "object-record";
   }
 
-  if ([...ids].some((id) => ["hospital", "injury", "blood", "death", "fire"].includes(id))) {
+  if ([...ids].some((id) => ["hospital", "injury", "blood", "death", "fire", "accident", "surgery", "funeral"].includes(id))) {
     return "care-risk";
   }
 
