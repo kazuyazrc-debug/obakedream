@@ -2,6 +2,7 @@
 
 import { ArrowLeft, RotateCcw } from "lucide-react";
 import { axisLabels } from "@/data/rules/scoring";
+import { selectDrinkRecommendation } from "@/lib/dream-engine/drinks/selectDrinkRecommendation";
 import type { InterpretationResult, ScoreAxis } from "@/types/dream";
 
 type ResultViewProps = {
@@ -9,6 +10,25 @@ type ResultViewProps = {
   onBack: () => void;
   onRestart: () => void;
 };
+
+function buildBalancedSummaryLines(result: InterpretationResult): string[] {
+  const { summary, symbolMeaning, psychology, fortune } = result.sections;
+
+  if (result.selectedMotifs.length <= 1) {
+    // Single motif: original ordering keeps the established cadence
+    return uniqueParagraphs(
+      [summary[0], summary[1], symbolMeaning[0], psychology[0], fortune[0], summary[2]],
+      5,
+    );
+  }
+
+  // Multi-motif: surface all three interleaved summary slots first so no one
+  // motif claims the opening paragraph, then draw from other sections
+  return uniqueParagraphs(
+    [summary[0], summary[1], summary[2], symbolMeaning[0], psychology[0], fortune[0]],
+    5,
+  );
+}
 
 function uniqueParagraphs(paragraphs: Array<string | undefined>, limit: number): string[] {
   const seen = new Set<string>();
@@ -61,16 +81,12 @@ function AxisMeter({
 export function ResultView({ result, onBack, onRestart }: ResultViewProps) {
   const scoreEntries = (Object.entries(result.scores) as [ScoreAxis, number][])
     .sort((a, b) => b[1] - a[1]);
-  const readingParagraphs = uniqueParagraphs(
-    [
-      ...result.sections.summary.slice(0, 2),
-      result.sections.symbolMeaning[0],
-      result.sections.psychology[0],
-      result.sections.fortune[0],
-      result.sections.summary[2],
-    ],
-    5,
-  );
+  const readingParagraphs = buildBalancedSummaryLines(result);
+  const drinkSeed = result.selectedMotifs.map((m) => m.id).join("-");
+  const drinkRecommendation = selectDrinkRecommendation({
+    dominantAxis: result.dominantAxes[0],
+    seed: drinkSeed,
+  });
   const cautionParagraphs = result.sections.caution.slice(0, 1);
   const hintParagraphs = result.sections.actionHint.slice(0, 2);
 
@@ -145,6 +161,20 @@ export function ResultView({ result, onBack, onRestart }: ResultViewProps) {
               </div>
             </article>
           )}
+
+          <article className="result-message-panel rounded-[1.45rem] p-5 md:p-6">
+            <h3 className="result-heading result-heading-soft mb-4 md:mb-[1.1rem]">今日おすすめの一杯</h3>
+            <div className="space-y-3">
+              <div>
+                <p className="text-[0.72rem] tracking-[0.07em] text-mist-400 mb-1">午前のあなたにおすすめの一杯</p>
+                <p className="text-[0.96rem] font-medium text-mist-200">{drinkRecommendation.morning.name}</p>
+              </div>
+              <div>
+                <p className="text-[0.72rem] tracking-[0.07em] text-mist-400 mb-1">午後も頑張るあなたにおすすめの一杯</p>
+                <p className="text-[0.96rem] font-medium text-mist-200">{drinkRecommendation.afternoon.name}</p>
+              </div>
+            </div>
+          </article>
         </div>
 
         <aside className="result-sidebar space-y-4 md:space-y-5 lg:sticky lg:top-6 lg:self-start">

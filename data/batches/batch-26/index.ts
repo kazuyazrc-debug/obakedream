@@ -8,7 +8,7 @@ export const batch26: MotifBatch = {
   id: "batch-26",
   label: "Stage49 batch-26",
   description:
-    "Stage49 additions. High-frequency life events adding death, accident, flood, wedding, argument, graduation, surgery, moving_house, reunion, and promotion.",
+    "Stage49 additions. High-frequency life events adding funeral, accident, flood, wedding, argument, graduation, surgery, moving_house, reunion, and promotion.",
   motifs: batch26Motifs,
   aliases: batch26Aliases,
   questions: batch26Questions,

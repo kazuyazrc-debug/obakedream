@@ -534,6 +534,45 @@ describe("interpretation composition", () => {
     expect(answered.sections.actionHint.join(" ")).toContain("つまずきやすい一段");
   });
 
+  it("puts being_chased+school pair block first in psychology when no answers are given", () => {
+    const motifs = findMotifsByIds(["being_chased", "school"]);
+    const result = composeInterpretation(
+      {
+        text: "学校で誰かに追いかけられた夢だった",
+        impression: "uneasy",
+        clarity: "clear",
+        recurring: false,
+      },
+      motifs,
+      [],
+    );
+
+    expect(result.sections.psychology[0]).toBe(
+      "追いかけられながら学校にいる夢は、評価や期待に対するプレッシャーが積み重なっているサインです。誰かの目を意識して頑張り続けてきた疲れが、この組み合わせに表れることがあります。",
+    );
+  });
+
+  it("interleaves symbolMeaning blocks from both motifs for being_late+train", () => {
+    const lateSolo = composeInterpretation(
+      { text: "電車に乗り遅れた夢だった", impression: "uneasy", clarity: "clear", recurring: false },
+      findMotifsByIds(["being_late"]),
+      [],
+    );
+    const trainSolo = composeInterpretation(
+      { text: "電車に乗った夢だった", impression: "uneasy", clarity: "clear", recurring: false },
+      findMotifsByIds(["train"]),
+      [],
+    );
+    const combined = composeInterpretation(
+      { text: "駅で電車に乗り遅れそうで焦っていた", impression: "uneasy", clarity: "clear", recurring: false },
+      findMotifsByIds(["being_late", "train"]),
+      [],
+    );
+
+    expect(combined.sections.symbolMeaning).toContain(lateSolo.sections.symbolMeaning[0]);
+    expect(combined.sections.symbolMeaning).toContain(trainSolo.sections.symbolMeaning[0]);
+  });
+
   it("personalizes elevator text when an elevator-motion answer is chosen", () => {
     const motifs = findMotifsByIds(["elevator"]);
     const base = composeInterpretation(

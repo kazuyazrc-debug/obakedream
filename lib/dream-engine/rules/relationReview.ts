@@ -1009,7 +1009,7 @@ export function classifyRelationCluster(sourceId: string, targetId: string): Rel
     return "water-weather";
   }
 
-  if ([...ids].some((id) => ["house", "childhood_home", "hotel", "key", "toilet", "mirror", "shrine", "shop", "library", "park", "door", "restaurant", "cafe", "convenience_store", "cinema", "window", "rooftop", "hot_spring", "kitchen", "garden", "hallway", "balcony", "entrance", "storage_room", "power_outage", "moving_house"].includes(id))) {
+  if ([...ids].some((id) => ["house", "childhood_home", "hotel", "key", "toilet", "mirror", "shrine", "shop", "library", "park", "door", "restaurant", "cafe", "convenience_store", "cinema", "window", "rooftop", "hot_spring", "kitchen", "garden", "hallway", "balcony", "entrance", "storage_room", "power_outage", "moving_house", "prison"].includes(id))) {
     return "home-place";
   }
 
@@ -1021,7 +1021,7 @@ export function classifyRelationCluster(sourceId: string, targetId: string): Rel
     return "communication";
   }
 
-  if ([...ids].some((id) => ["friend", "family", "stranger", "ex_partner", "crush", "breakup", "ring", "boss", "workplace", "child", "teacher", "neighbor", "coworker", "classmate", "partner", "rival", "senior", "junior", "relative", "roommate", "customer", "guide", "ancestor", "mentor", "teammate", "bully", "client", "old_friend", "childhood_friend", "leader", "subordinate", "shop_clerk", "guest", "rescuer", "judge", "witness", "captain", "former_classmate", "former_coworker", "online_friend", "police_officer", "admirer", "driver", "landlord", "mediator", "being_fired", "resignation", "wedding", "argument", "reunion", "promotion"].includes(id))) {
+  if ([...ids].some((id) => ["friend", "family", "stranger", "ex_partner", "crush", "breakup", "ring", "boss", "workplace", "child", "teacher", "neighbor", "coworker", "classmate", "partner", "rival", "senior", "junior", "relative", "roommate", "customer", "guide", "ancestor", "mentor", "teammate", "bully", "client", "old_friend", "childhood_friend", "leader", "subordinate", "shop_clerk", "guest", "rescuer", "judge", "witness", "captain", "former_classmate", "former_coworker", "online_friend", "police_officer", "admirer", "driver", "landlord", "mediator", "being_fired", "resignation", "wedding", "argument", "reunion", "promotion", "interview", "confession", "betrayal", "divorce"].includes(id))) {
     return "relationship";
   }
 
@@ -1029,7 +1029,7 @@ export function classifyRelationCluster(sourceId: string, targetId: string): Rel
     return "body-appearance";
   }
 
-  if ([...ids].some((id) => ["crying", "laughing", "apologizing", "being_chased", "fighting", "hiding", "searching", "waiting", "lost", "picking_up", "choosing", "opening", "screaming", "forgetting", "running", "cleaning", "tidying", "losing", "handing_over", "embracing", "being_late", "exam", "sleep", "breaking", "making_mistake", "refusing", "lining_up", "tripping", "inviting", "concealing", "cooking", "festival", "writing", "dancing", "packing", "folding", "carrying", "singing", "reading", "tying", "wiping", "wrapping", "unpacking", "carving", "footsteps", "hesitating", "backing_away", "flinching", "tiptoeing", "holding_back", "double_checking", "being_trapped", "paralysis", "transformation", "pregnancy", "graduation"].includes(id))) {
+  if ([...ids].some((id) => ["crying", "laughing", "apologizing", "being_chased", "fighting", "hiding", "searching", "waiting", "lost", "picking_up", "choosing", "opening", "screaming", "forgetting", "running", "cleaning", "tidying", "losing", "handing_over", "embracing", "being_late", "exam", "sleep", "breaking", "making_mistake", "refusing", "lining_up", "tripping", "inviting", "concealing", "cooking", "festival", "writing", "dancing", "packing", "folding", "carrying", "singing", "reading", "tying", "wiping", "wrapping", "unpacking", "carving", "footsteps", "hesitating", "backing_away", "flinching", "tiptoeing", "holding_back", "double_checking", "being_trapped", "paralysis", "transformation", "pregnancy", "graduation", "ghost", "presentation", "apology"].includes(id))) {
     return "emotion-action";
   }
 
@@ -1037,11 +1037,11 @@ export function classifyRelationCluster(sourceId: string, targetId: string): Rel
     return "nature-sky";
   }
 
-  if ([...ids].some((id) => ["photo", "clock", "wallet", "bag", "umbrella", "shoes", "book", "notebook", "box", "desk", "chair", "calendar", "past", "news", "game", "pen", "dish", "shelf", "gift", "planner", "cup", "candle", "blanket", "envelope", "scissors", "toy", "pillow", "rope", "painting", "button", "coin", "ribbon", "lantern", "drawer", "thread", "stamp", "clay", "bead", "spoon", "blank_page", "knot", "postcard", "basket", "jar", "bench", "curtain", "chalk", "tray", "needle", "paintbrush", "plate", "lamp", "string", "marble", "bucket", "broom", "bowl", "pencil", "bookmark", "shoelace", "zipper", "apron", "ticket_stub", "paint", "keychain", "pocket", "eraser", "ruler", "paperclip", "coaster", "handkerchief", "bell", "ink", "torn_paper", "answer_sheet", "keyboard", "monitor", "glue", "tape", "label", "folder", "receipt", "magnifying_glass", "clipboard", "stapler", "calendar_page", "rubber_band", "binder", "index_card", "coupon", "pencil_case", "checklist", "progress_bar", "loading_icon", "wristwatch", "rubber_stamp", "notepad", "sticky_note", "paper_cup", "file_tab", "pause_button", "status_light", "screen_corner", "name_tag", "paper_crane", "paper_bag", "coin_purse", "corkboard", "measuring_tape", "ink_pad", "cursor", "battery_icon", "mute_button", "binder_clip", "sketchbook", "stamp_sheet", "hourglass", "paperweight", "search_bar", "signal_bar", "volume_slider"].includes(id))) {
+  if ([...ids].some((id) => ["photo", "clock", "wallet", "bag", "umbrella", "shoes", "book", "notebook", "box", "desk", "chair", "calendar", "past", "news", "game", "pen", "dish", "shelf", "gift", "planner", "cup", "candle", "blanket", "envelope", "scissors", "toy", "pillow", "rope", "painting", "button", "coin", "ribbon", "lantern", "drawer", "thread", "stamp", "clay", "bead", "spoon", "blank_page", "knot", "postcard", "basket", "jar", "bench", "curtain", "chalk", "tray", "needle", "paintbrush", "plate", "lamp", "string", "marble", "bucket", "broom", "bowl", "pencil", "bookmark", "shoelace", "zipper", "apron", "ticket_stub", "paint", "keychain", "pocket", "eraser", "ruler", "paperclip", "coaster", "handkerchief", "bell", "ink", "torn_paper", "answer_sheet", "keyboard", "monitor", "glue", "tape", "label", "folder", "receipt", "magnifying_glass", "clipboard", "stapler", "calendar_page", "rubber_band", "binder", "index_card", "coupon", "pencil_case", "checklist", "progress_bar", "loading_icon", "wristwatch", "rubber_stamp", "notepad", "sticky_note", "paper_cup", "file_tab", "pause_button", "status_light", "screen_corner", "name_tag", "paper_crane", "paper_bag", "coin_purse", "corkboard", "measuring_tape", "ink_pad", "cursor", "battery_icon", "mute_button", "binder_clip", "sketchbook", "stamp_sheet", "hourglass", "paperweight", "search_bar", "signal_bar", "volume_slider", "treasure"].includes(id))) {
     return "object-record";
   }
 
-  if ([...ids].some((id) => ["hospital", "injury", "blood", "death", "fire", "accident", "surgery", "funeral"].includes(id))) {
+  if ([...ids].some((id) => ["hospital", "injury", "blood", "death", "fire", "accident", "surgery", "funeral", "war"].includes(id))) {
     return "care-risk";
   }
 
