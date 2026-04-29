@@ -1,53 +1,38 @@
 "use client";
 
-import { ArrowLeft, RotateCcw } from "lucide-react";
+import { ArrowLeft, RotateCcw, Sparkles } from "lucide-react";
 import { axisLabels } from "@/data/rules/scoring";
+import { buildBalancedSummaryLines } from "@/lib/dream-engine/compose/buildSummaryLines";
 import { selectDrinkRecommendation } from "@/lib/dream-engine/drinks/selectDrinkRecommendation";
-import type { InterpretationResult, ScoreAxis } from "@/types/dream";
+import type { AiDreamPromptInput } from "@/lib/dream-engine/prompt/buildAiDreamPrompt";
+import { AI_DREAM_PROMPT_STORAGE_KEY } from "@/lib/dream-engine/prompt/storage";
+import type { DreamInput, InterpretationResult, ScoreAxis } from "@/types/dream";
 
 type ResultViewProps = {
+  input: DreamInput;
   result: InterpretationResult;
   onBack: () => void;
   onRestart: () => void;
 };
 
-function buildBalancedSummaryLines(result: InterpretationResult): string[] {
-  const { summary, symbolMeaning, psychology, fortune } = result.sections;
+function persistAiPromptContext(context: AiDreamPromptInput) {
+  const payload = JSON.stringify(context);
 
-  if (result.selectedMotifs.length <= 1) {
-    // Single motif: original ordering keeps the established cadence
-    return uniqueParagraphs(
-      [summary[0], summary[1], symbolMeaning[0], psychology[0], fortune[0], summary[2]],
-      5,
-    );
+  try {
+    window.sessionStorage.setItem(AI_DREAM_PROMPT_STORAGE_KEY, payload);
+    return;
+  } catch {
+    // Continue to the next local-only fallback.
   }
 
-  // Multi-motif: surface all three interleaved summary slots first so no one
-  // motif claims the opening paragraph, then draw from other sections
-  return uniqueParagraphs(
-    [summary[0], summary[1], summary[2], symbolMeaning[0], psychology[0], fortune[0]],
-    5,
-  );
-}
-
-function uniqueParagraphs(paragraphs: Array<string | undefined>, limit: number): string[] {
-  const seen = new Set<string>();
-  const result: string[] = [];
-
-  for (const paragraph of paragraphs) {
-    if (!paragraph || seen.has(paragraph)) {
-      continue;
-    }
-
-    seen.add(paragraph);
-    result.push(paragraph);
-
-    if (result.length >= limit) {
-      break;
-    }
+  try {
+    window.localStorage.setItem(AI_DREAM_PROMPT_STORAGE_KEY, payload);
+    return;
+  } catch {
+    // Continue to the dream-text-only fallback below.
   }
 
-  return result;
+  window.name = JSON.stringify({ dreamText: context.dreamText, source: "result" });
 }
 
 function AxisMeter({
@@ -78,7 +63,7 @@ function AxisMeter({
   );
 }
 
-export function ResultView({ result, onBack, onRestart }: ResultViewProps) {
+export function ResultView({ input, result, onBack, onRestart }: ResultViewProps) {
   const scoreEntries = (Object.entries(result.scores) as [ScoreAxis, number][])
     .sort((a, b) => b[1] - a[1]);
   const readingParagraphs = buildBalancedSummaryLines(result);
@@ -89,6 +74,40 @@ export function ResultView({ result, onBack, onRestart }: ResultViewProps) {
   });
   const cautionParagraphs = result.sections.caution.slice(0, 1);
   const hintParagraphs = result.sections.actionHint.slice(0, 2);
+
+  function openAiPromptWithResult() {
+    const topAxes = scoreEntries
+      .filter(([, value]) => value > 0)
+      .slice(0, 3)
+      .map(([axis, score]) => ({
+        axis,
+        label: axisLabels[axis],
+        score,
+      }));
+
+    persistAiPromptContext({
+      source: "result",
+      dreamText: input.text,
+      impression: input.impression,
+      selectedMotifs: result.selectedMotifs.map((motif) => ({
+        id: motif.id,
+        label: motif.name,
+      })),
+      topAxes,
+      summary: result.sections.summary,
+      symbolMeaning: result.sections.symbolMeaning,
+      psychology: result.sections.psychology,
+      fortune: result.sections.fortune,
+      cautionAndAction: [...result.sections.caution, ...result.sections.actionHint],
+      encouragement: result.sections.encouragement,
+      drinkRecommendation: {
+        morning: drinkRecommendation.morning.name,
+        afternoon: drinkRecommendation.afternoon.name,
+      },
+    });
+
+    window.location.assign("/ai-prompt");
+  }
 
   return (
     <section className="result-shell space-y-5 md:space-y-6">
@@ -175,6 +194,19 @@ export function ResultView({ result, onBack, onRestart }: ResultViewProps) {
               </div>
             </div>
           </article>
+
+          <div className="result-ai-cta rounded-[1.35rem] p-4 md:p-5">
+            <div>
+              <p className="text-sm font-semibold text-mist-100">もう少し深く読みたいときに</p>
+              <p className="mt-1 text-sm leading-6 text-mist-300">
+                この結果を含めた夢読みメモを作って、外部AIに貼り付けられます。API送信はしません。
+              </p>
+            </div>
+            <button type="button" onClick={openAiPromptWithResult} className="ai-prompt-entry-button mt-3 w-full sm:w-auto">
+              <Sparkles size={18} aria-hidden="true" />
+              この結果をAIでさらに読む
+            </button>
+          </div>
         </div>
 
         <aside className="result-sidebar space-y-4 md:space-y-5 lg:sticky lg:top-6 lg:self-start">

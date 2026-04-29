@@ -177,6 +177,50 @@ label {
     inset 0 1px 0 rgb(255 255 255 / 0.42);
 }
 
+.ai-prompt-entry-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 1.05rem;
+  border: 1px solid rgb(206 191 255 / 0.26);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.045)),
+    linear-gradient(135deg, rgb(141 105 255 / 0.14), rgb(121 196 255 / 0.07));
+  padding: 0.92rem 1.22rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #f7f4ff;
+  box-shadow:
+    0 16px 36px rgb(0 0 0 / 0.18),
+    inset 0 1px 0 rgb(255 255 255 / 0.08);
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.ai-prompt-entry-button:hover {
+  transform: translateY(-1px);
+  border-color: rgb(191 239 255 / 0.38);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.13), rgb(255 255 255 / 0.055)),
+    linear-gradient(135deg, rgb(141 105 255 / 0.16), rgb(121 196 255 / 0.09));
+  box-shadow:
+    0 20px 42px rgb(0 0 0 / 0.2),
+    inset 0 1px 0 rgb(255 255 255 / 0.1);
+}
+
+.ai-prompt-entry-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  transform: none;
+  box-shadow:
+    0 10px 24px rgb(0 0 0 / 0.14),
+    inset 0 1px 0 rgb(255 255 255 / 0.06);
+}
+
 .ritual-panel {
   border: 1px solid rgb(255 255 255 / 0.12);
   background:
@@ -312,6 +356,17 @@ label {
   box-shadow:
     0 16px 36px rgb(0 0 0 / 0.16),
     inset 0 1px 0 rgb(255 255 255 / 0.08);
+}
+
+.result-ai-cta {
+  border: 1px solid rgb(206 191 255 / 0.18);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.065), rgb(255 255 255 / 0.028)),
+    linear-gradient(135deg, rgb(141 105 255 / 0.1), rgb(121 196 255 / 0.04));
+  box-shadow:
+    0 14px 34px rgb(0 0 0 / 0.16),
+    inset 0 1px 0 rgb(255 255 255 / 0.04);
+  backdrop-filter: blur(16px);
 }
 
 .result-encouragement-prose {
@@ -452,6 +507,100 @@ label {
   backdrop-filter: blur(16px);
 }
 
+.ai-prompt-shell {
+  border: 1px solid rgb(255 255 255 / 0.12);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.035)),
+    linear-gradient(135deg, rgb(15 21 36 / 0.86), rgb(8 12 22 / 0.92));
+  box-shadow:
+    0 24px 62px rgb(0 0 0 / 0.24),
+    inset 0 1px 0 rgb(255 255 255 / 0.05);
+  backdrop-filter: blur(20px);
+}
+
+.ai-prompt-card {
+  border: 1px solid rgb(255 255 255 / 0.1);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.075), rgb(255 255 255 / 0.032)),
+    linear-gradient(135deg, rgb(22 28 45 / 0.72), rgb(11 15 26 / 0.82));
+  box-shadow:
+    0 16px 38px rgb(0 0 0 / 0.18),
+    inset 0 1px 0 rgb(255 255 255 / 0.04);
+  backdrop-filter: blur(16px);
+}
+
+.ai-prompt-textarea {
+  min-height: 24rem;
+  width: 100%;
+  resize: vertical;
+  border-radius: 1.15rem;
+  border: 1px solid rgb(191 239 255 / 0.18);
+  background:
+    linear-gradient(180deg, rgb(205 215 235 / 0.14), rgb(152 165 194 / 0.1)),
+    linear-gradient(135deg, rgb(8 13 24 / 0.76), rgb(15 20 34 / 0.82));
+  padding: 1rem;
+  color: #f5f2ff;
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.86rem;
+  line-height: 1.72;
+  outline: none;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.05),
+    0 14px 30px rgb(0 0 0 / 0.18);
+}
+
+.ai-copy-button,
+.ai-service-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 1rem;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.09), rgb(255 255 255 / 0.04)),
+    linear-gradient(135deg, rgb(184 166 255 / 0.09), rgb(121 196 255 / 0.04));
+  padding: 0.75rem 0.95rem;
+  color: #f8f6ff;
+  font-weight: 650;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.ai-copy-button:hover,
+.ai-service-button:hover {
+  transform: translateY(-1px);
+  border-color: rgb(191 239 255 / 0.34);
+  box-shadow: 0 16px 34px rgb(0 0 0 / 0.18);
+}
+
+.ai-service-button {
+  justify-content: space-between;
+  width: 100%;
+  text-decoration: none;
+}
+
+.ai-service-button--chat {
+  background:
+    linear-gradient(180deg, rgb(191 239 255 / 0.12), rgb(255 255 255 / 0.045)),
+    linear-gradient(135deg, rgb(75 190 215 / 0.1), rgb(141 105 255 / 0.05));
+}
+
+.ai-service-button--sparkle {
+  background:
+    linear-gradient(180deg, rgb(236 231 255 / 0.13), rgb(255 255 255 / 0.045)),
+    linear-gradient(135deg, rgb(167 141 255 / 0.13), rgb(121 196 255 / 0.04));
+}
+
+.ai-service-button--book {
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.11), rgb(255 255 255 / 0.04)),
+    linear-gradient(135deg, rgb(210 190 255 / 0.1), rgb(160 188 220 / 0.05));
+}
+
 .section-kicker {
   color: #bbb8cf;
   font-size: 0.875rem;
@@ -512,5 +661,10 @@ label {
 
   .result-subsection {
     padding: 0.8rem 0.84rem;
+  }
+
+  .ai-prompt-textarea {
+    min-height: 20rem;
+    font-size: 0.82rem;
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { Moon, Search } from "lucide-react";
+import { Moon, Search, Sparkles } from "lucide-react";
 import type { DreamImpression, DreamInput, MemoryClarity } from "@/types/dream";
 
 const impressionOptions: { value: DreamImpression; label: string }[] = [
@@ -22,9 +22,10 @@ type DreamInputFormProps = {
   value: DreamInput;
   onChange: (input: DreamInput) => void;
   onAnalyze: () => void;
+  onAiPrompt: () => void;
 };
 
-export function DreamInputForm({ value, onChange, onAnalyze }: DreamInputFormProps) {
+export function DreamInputForm({ value, onChange, onAnalyze, onAiPrompt }: DreamInputFormProps) {
   const canAnalyze = value.text.trim().length >= 4;
 
   return (
@@ -106,15 +107,26 @@ export function DreamInputForm({ value, onChange, onAnalyze }: DreamInputFormPro
         </span>
       </label>
 
-      <button
-        type="button"
-        onClick={onAnalyze}
-        disabled={!canAnalyze}
-        className="primary-button w-full md:w-auto"
-      >
-        <Search size={18} aria-hidden="true" />
-        モチーフを確定し占いへ進む
-      </button>
+      <div className="flex flex-col gap-3 md:flex-row md:items-center">
+        <button
+          type="button"
+          onClick={onAnalyze}
+          disabled={!canAnalyze}
+          className="primary-button w-full md:w-auto"
+        >
+          <Search size={18} aria-hidden="true" />
+          モチーフを確定し占いへ進む
+        </button>
+        <button
+          type="button"
+          onClick={onAiPrompt}
+          disabled={!canAnalyze}
+          className="ai-prompt-entry-button w-full md:w-auto"
+        >
+          <Sparkles size={18} aria-hidden="true" />
+          AIで詳しく夢を占う
+        </button>
+      </div>
     </section>
   );
 }

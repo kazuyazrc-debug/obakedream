@@ -5,8 +5,10 @@ import { CandidateTags } from "@/components/CandidateTags";
 import { DreamInputForm } from "@/components/DreamInputForm";
 import { FollowUpQuestions } from "@/components/FollowUpQuestions";
 import { ResultView } from "@/components/ResultView";
-import { composeInterpretation, extractMotifs, findMotifsByIds, selectFollowUpQuestions } from "@/lib/dream-engine";
-import type { DreamInput, ExtractedMotif, InterpretationResult, QuestionAnswer } from "@/types/dream";
+import { composeInterpretation, extractMotifs, findMotifsByIds, scoreDream, selectFollowUpQuestions } from "@/lib/dream-engine";
+import type { AiDreamPromptInput } from "@/lib/dream-engine/prompt/buildAiDreamPrompt";
+import { AI_DREAM_PROMPT_STORAGE_KEY } from "@/lib/dream-engine/prompt/storage";
+import type { DreamInput, ExtractedMotif, InterpretationResult, QuestionAnswer, ScoreAxis, ScoreVector } from "@/types/dream";
 
 type Step = "input" | "tags" | "questions" | "result";
 
@@ -16,6 +18,49 @@ const initialInput: DreamInput = {
   clarity: "partial",
   recurring: false,
 };
+
+const axisLabels: Record<ScoreAxis, string> = {
+  anxiety: "不安",
+  change: "変化",
+  relationships: "対人",
+  selfDefense: "自己防衛",
+  loss: "喪失",
+  recovery: "回復",
+  desire: "願望",
+  unresolved: "未解決感",
+};
+
+function getTopAxes(scores: ScoreVector) {
+  return (Object.entries(scores) as [ScoreAxis, number][])
+    .sort((a, b) => b[1] - a[1])
+    .filter(([, score]) => score > 0)
+    .slice(0, 3)
+    .map(([axis, score]) => ({
+      axis,
+      label: axisLabels[axis],
+      score,
+    }));
+}
+
+function persistAiPromptContext(context: AiDreamPromptInput) {
+  const payload = JSON.stringify(context);
+
+  try {
+    window.sessionStorage.setItem(AI_DREAM_PROMPT_STORAGE_KEY, payload);
+    return;
+  } catch {
+    // Continue to the next local-only fallback.
+  }
+
+  try {
+    window.localStorage.setItem(AI_DREAM_PROMPT_STORAGE_KEY, payload);
+    return;
+  } catch {
+    // Continue to the dream-text-only fallback below.
+  }
+
+  window.name = JSON.stringify({ dreamText: context.dreamText });
+}
 
 export function DreamApp() {
   const [step, setStep] = useState<Step>("input");
@@ -39,6 +84,25 @@ export function DreamApp() {
     setAnswers([]);
     setResult(null);
     setStep("tags");
+  }
+
+  function openAiPrompt() {
+    const extracted = extractMotifs(input.text);
+    const topMotifs = extracted.slice(0, 6);
+    const scores = scoreDream(input, topMotifs.map((candidate) => candidate.motif), []);
+
+    persistAiPromptContext({
+      dreamText: input.text,
+      impression: input.impression,
+      extractedMotifs: topMotifs.map((candidate) => ({
+        id: candidate.motif.id,
+        label: candidate.motif.name,
+        score: candidate.score,
+      })),
+      topAxes: getTopAxes(scores),
+    });
+
+    window.location.assign("/ai-prompt");
   }
 
   function toggleMotif(motifId: string) {
@@ -110,7 +174,12 @@ export function DreamApp() {
 
         <div className="px-1">
           {step === "input" && (
-            <DreamInputForm value={input} onChange={setInput} onAnalyze={analyzeText} />
+            <DreamInputForm
+              value={input}
+              onChange={setInput}
+              onAnalyze={analyzeText}
+              onAiPrompt={openAiPrompt}
+            />
           )}
 
           {step === "tags" && (
@@ -144,7 +213,7 @@ export function DreamApp() {
           )}
 
           {step === "result" && result && (
-            <ResultView result={result} onBack={goBackFromResult} onRestart={restart} />
+            <ResultView input={input} result={result} onBack={goBackFromResult} onRestart={restart} />
           )}
         </div>
       </main>
