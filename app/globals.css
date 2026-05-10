@@ -63,6 +63,168 @@ label {
   touch-action: manipulation;
 }
 
+.floating-ghost-layer {
+  pointer-events: none;
+  user-select: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  contain: layout paint style;
+}
+
+.floating-ghost-layer * {
+  pointer-events: none;
+  user-select: none;
+}
+
+.floating-ghost {
+  --ghost-visible-opacity: 0.38;
+  position: absolute;
+  display: block;
+  width: clamp(3rem, 4vw, 4.5rem);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.floating-ghost__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 10px 18px rgb(191 239 255 / 0.12));
+  animation: ghost-bob 8.8s ease-in-out infinite;
+}
+
+.floating-ghost--a {
+  right: -5.5rem;
+  bottom: 14vh;
+  --ghost-visible-opacity: 0.38;
+  animation: ghost-drift-a 34s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation-delay: 5s;
+}
+
+.floating-ghost--b {
+  left: -5rem;
+  top: 10vh;
+  width: clamp(2.75rem, 3.4vw, 4rem);
+  --ghost-visible-opacity: 0.26;
+  animation: ghost-drift-b 36s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation-delay: 19s;
+}
+
+.floating-ghost--c {
+  right: 12vw;
+  top: 5vh;
+  width: clamp(2.5rem, 3vw, 3.5rem);
+  --ghost-visible-opacity: 0.28;
+  animation: ghost-drift-c 30s ease-in-out infinite;
+  animation-delay: 12s;
+}
+
+@keyframes ghost-drift-a {
+  0%,
+  8% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+
+  16%,
+  34% {
+    opacity: var(--ghost-visible-opacity);
+  }
+
+  58% {
+    opacity: calc(var(--ghost-visible-opacity) * 0.82);
+  }
+
+  76% {
+    opacity: var(--ghost-visible-opacity);
+  }
+
+  94%,
+  100% {
+    opacity: 0;
+    transform: translate3d(calc(-100vw - 8rem), -16vh, 0);
+  }
+}
+
+@keyframes ghost-drift-b {
+  0%,
+  14% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+
+  24%,
+  42% {
+    opacity: var(--ghost-visible-opacity);
+  }
+
+  62% {
+    opacity: calc(var(--ghost-visible-opacity) * 0.78);
+  }
+
+  74% {
+    opacity: var(--ghost-visible-opacity);
+  }
+
+  92%,
+  100% {
+    opacity: 0;
+    transform: translate3d(calc(100vw + 8rem), 5vh, 0);
+  }
+}
+
+@keyframes ghost-drift-c {
+  0%,
+  18% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+
+  34%,
+  50% {
+    opacity: var(--ghost-visible-opacity);
+  }
+
+  66% {
+    opacity: calc(var(--ghost-visible-opacity) * 0.72);
+  }
+
+  78% {
+    opacity: var(--ghost-visible-opacity);
+  }
+
+  94%,
+  100% {
+    opacity: 0;
+    transform: translate3d(-20vw, 9vh, 0);
+  }
+}
+
+@keyframes ghost-bob {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-0.8rem) rotate(-1.2deg);
+  }
+
+  50% {
+    transform: translateY(0.25rem) rotate(0.8deg);
+  }
+
+  75% {
+    transform: translateY(-0.55rem) rotate(1.1deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
 .choice-pill {
   display: flex;
   min-height: 2.75rem;
@@ -615,6 +777,19 @@ label {
 }
 
 @media (max-width: 640px) {
+  .floating-ghost--a,
+  .floating-ghost--c {
+    display: none;
+  }
+
+  .floating-ghost--b {
+    top: 6vh;
+    width: 2.5rem;
+    --ghost-visible-opacity: 0.2;
+    animation-duration: 38s;
+    animation-delay: 8s;
+  }
+
   .primary-button,
   .ghost-button {
     width: 100%;
@@ -666,5 +841,16 @@ label {
   .ai-prompt-textarea {
     min-height: 20rem;
     font-size: 0.82rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-ghost-layer {
+    display: none;
+  }
+
+  .floating-ghost,
+  .floating-ghost__image {
+    animation: none;
   }
 }

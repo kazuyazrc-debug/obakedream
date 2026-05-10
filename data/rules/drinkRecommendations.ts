@@ -17,9 +17,9 @@ export type DrinkRecommendation = {
   afternoon: Drink;
 };
 
-// 192 candidates: 8 axes × 12 morning + 8 axes × 12 afternoon
+// 256 candidates: base 192 + 64 expansion candidates.
 // Afternoon: caffeine "no" only, banned terms excluded
-export const drinkCandidates: Drink[] = [
+const baseDrinkCandidates: Drink[] = [
   // ===== ANXIETY (calm, gentle, soft aroma, relaxing) =====
   // Morning (12)
   { id: "anxiety-morning-1",  name: "カモミールティー",         axis: "anxiety", time: "morning",   caffeine: "no",  tags: ["calm", "floral"] },
@@ -243,4 +243,91 @@ export const drinkCandidates: Drink[] = [
   { id: "unresolved-afternoon-10", name: "炭酸水",           axis: "unresolved", time: "afternoon", caffeine: "no",  tags: ["clear", "light"] },
   { id: "unresolved-afternoon-11", name: "ぬるめの豆乳",     axis: "unresolved", time: "afternoon", caffeine: "no",  tags: ["soft", "quiet"] },
   { id: "unresolved-afternoon-12", name: "麦茶（ぬるめ）",   axis: "unresolved", time: "afternoon", caffeine: "no",  tags: ["quiet", "lingering"] },
+];
+
+const expansionDrinkCandidates: Drink[] = [
+  // ===== EXPANSION: ANXIETY =====
+  { id: "anxiety-morning-13", name: "リンデンフラワーティー", axis: "anxiety", time: "morning", caffeine: "no", tags: ["floral", "calm"] },
+  { id: "anxiety-morning-14", name: "白桃ルイボス", axis: "anxiety", time: "morning", caffeine: "no", tags: ["soft", "fruity"] },
+  { id: "anxiety-morning-15", name: "はちみつ白湯", axis: "anxiety", time: "morning", caffeine: "no", tags: ["warm", "gentle"] },
+  { id: "anxiety-morning-16", name: "オートミルクティー", axis: "anxiety", time: "morning", caffeine: "no", tags: ["soft", "nourishing"] },
+  { id: "anxiety-afternoon-13", name: "リンデンフラワーティー", axis: "anxiety", time: "afternoon", caffeine: "no", tags: ["floral", "calm"] },
+  { id: "anxiety-afternoon-14", name: "白桃ルイボス", axis: "anxiety", time: "afternoon", caffeine: "no", tags: ["soft", "fruity"] },
+  { id: "anxiety-afternoon-15", name: "はちみつ白湯", axis: "anxiety", time: "afternoon", caffeine: "no", tags: ["warm", "gentle"] },
+  { id: "anxiety-afternoon-16", name: "オートミルク", axis: "anxiety", time: "afternoon", caffeine: "no", tags: ["soft", "nourishing"] },
+
+  // ===== EXPANSION: CHANGE =====
+  { id: "change-morning-13", name: "オレンジルイボス", axis: "change", time: "morning", caffeine: "no", tags: ["citrus", "bright"] },
+  { id: "change-morning-14", name: "グレープフルーツ炭酸水", axis: "change", time: "morning", caffeine: "no", tags: ["sparkling", "citrus"] },
+  { id: "change-morning-15", name: "ミントレモンウォーター", axis: "change", time: "morning", caffeine: "no", tags: ["mint", "fresh"] },
+  { id: "change-morning-16", name: "ゆずジンジャー", axis: "change", time: "morning", caffeine: "no", tags: ["citrus", "warming"] },
+  { id: "change-afternoon-13", name: "オレンジルイボス", axis: "change", time: "afternoon", caffeine: "no", tags: ["citrus", "bright"] },
+  { id: "change-afternoon-14", name: "グレープフルーツ炭酸水", axis: "change", time: "afternoon", caffeine: "no", tags: ["sparkling", "citrus"] },
+  { id: "change-afternoon-15", name: "ミントレモンウォーター", axis: "change", time: "afternoon", caffeine: "no", tags: ["mint", "fresh"] },
+  { id: "change-afternoon-16", name: "ゆずジンジャー", axis: "change", time: "afternoon", caffeine: "no", tags: ["citrus", "warming"] },
+
+  // ===== EXPANSION: RELATIONSHIPS =====
+  { id: "relationships-morning-13", name: "カカオルイボス", axis: "relationships", time: "morning", caffeine: "no", tags: ["sweet", "warm"] },
+  { id: "relationships-morning-14", name: "シナモン豆乳", axis: "relationships", time: "morning", caffeine: "no", tags: ["spice", "soft"] },
+  { id: "relationships-morning-15", name: "白桃ハーブティー", axis: "relationships", time: "morning", caffeine: "no", tags: ["fruity", "gentle"] },
+  { id: "relationships-morning-16", name: "ローズルイボス", axis: "relationships", time: "morning", caffeine: "no", tags: ["floral", "warm"] },
+  { id: "relationships-afternoon-13", name: "キャラメルルイボス", axis: "relationships", time: "afternoon", caffeine: "no", tags: ["sweet", "warm"] },
+  { id: "relationships-afternoon-14", name: "シナモン豆乳", axis: "relationships", time: "afternoon", caffeine: "no", tags: ["spice", "soft"] },
+  { id: "relationships-afternoon-15", name: "白桃ハーブティー", axis: "relationships", time: "afternoon", caffeine: "no", tags: ["fruity", "gentle"] },
+  { id: "relationships-afternoon-16", name: "ローズルイボス", axis: "relationships", time: "afternoon", caffeine: "no", tags: ["floral", "warm"] },
+
+  // ===== EXPANSION: SELF DEFENSE =====
+  { id: "selfDefense-morning-13", name: "セージハーブティー", axis: "selfDefense", time: "morning", caffeine: "no", tags: ["herbal", "clear"] },
+  { id: "selfDefense-morning-14", name: "レモンミント炭酸水", axis: "selfDefense", time: "morning", caffeine: "no", tags: ["mint", "sparkling"] },
+  { id: "selfDefense-morning-15", name: "玄米茶", axis: "selfDefense", time: "morning", caffeine: "yes", tags: ["earthy", "focused"] },
+  { id: "selfDefense-morning-16", name: "すだち白湯", axis: "selfDefense", time: "morning", caffeine: "no", tags: ["clear", "citrus"] },
+  { id: "selfDefense-afternoon-13", name: "セージハーブティー", axis: "selfDefense", time: "afternoon", caffeine: "no", tags: ["herbal", "clear"] },
+  { id: "selfDefense-afternoon-14", name: "レモンミント炭酸水", axis: "selfDefense", time: "afternoon", caffeine: "no", tags: ["mint", "sparkling"] },
+  { id: "selfDefense-afternoon-15", name: "すだち白湯", axis: "selfDefense", time: "afternoon", caffeine: "no", tags: ["clear", "citrus"] },
+  { id: "selfDefense-afternoon-16", name: "冷たい黒豆茶", axis: "selfDefense", time: "afternoon", caffeine: "no", tags: ["earthy", "clear"] },
+
+  // ===== EXPANSION: LOSS =====
+  { id: "loss-morning-13", name: "玄米ルイボス", axis: "loss", time: "morning", caffeine: "no", tags: ["earthy", "warm"] },
+  { id: "loss-morning-14", name: "焼きりんごティー", axis: "loss", time: "morning", caffeine: "no", tags: ["nostalgic", "fruity"] },
+  { id: "loss-morning-15", name: "きなこ豆乳", axis: "loss", time: "morning", caffeine: "no", tags: ["nourishing", "grounding"] },
+  { id: "loss-morning-16", name: "生姜ほうじ茶", axis: "loss", time: "morning", caffeine: "yes", tags: ["warm", "ginger"] },
+  { id: "loss-afternoon-13", name: "玄米ルイボス", axis: "loss", time: "afternoon", caffeine: "no", tags: ["earthy", "warm"] },
+  { id: "loss-afternoon-14", name: "焼きりんごティー", axis: "loss", time: "afternoon", caffeine: "no", tags: ["nostalgic", "fruity"] },
+  { id: "loss-afternoon-15", name: "きなこ豆乳", axis: "loss", time: "afternoon", caffeine: "no", tags: ["nourishing", "grounding"] },
+  { id: "loss-afternoon-16", name: "生姜麦茶", axis: "loss", time: "afternoon", caffeine: "no", tags: ["warm", "ginger"] },
+
+  // ===== EXPANSION: RECOVERY =====
+  { id: "recovery-morning-13", name: "なつめ茶", axis: "recovery", time: "morning", caffeine: "no", tags: ["nourishing", "warm"] },
+  { id: "recovery-morning-14", name: "黒糖しょうが湯", axis: "recovery", time: "morning", caffeine: "no", tags: ["ginger", "sweet"] },
+  { id: "recovery-morning-15", name: "オーツミルクラテ", axis: "recovery", time: "morning", caffeine: "no", tags: ["soft", "rebuilding"] },
+  { id: "recovery-morning-16", name: "はちみつルイボス", axis: "recovery", time: "morning", caffeine: "no", tags: ["warm", "soft"] },
+  { id: "recovery-afternoon-13", name: "なつめ茶", axis: "recovery", time: "afternoon", caffeine: "no", tags: ["nourishing", "warm"] },
+  { id: "recovery-afternoon-14", name: "黒糖しょうが湯", axis: "recovery", time: "afternoon", caffeine: "no", tags: ["ginger", "sweet"] },
+  { id: "recovery-afternoon-15", name: "オーツミルク", axis: "recovery", time: "afternoon", caffeine: "no", tags: ["soft", "rebuilding"] },
+  { id: "recovery-afternoon-16", name: "はちみつルイボス", axis: "recovery", time: "afternoon", caffeine: "no", tags: ["warm", "soft"] },
+
+  // ===== EXPANSION: DESIRE =====
+  { id: "desire-morning-13", name: "ベリールイボス", axis: "desire", time: "morning", caffeine: "no", tags: ["fruity", "bright"] },
+  { id: "desire-morning-14", name: "白桃ソーダ", axis: "desire", time: "morning", caffeine: "no", tags: ["fruity", "sparkling"] },
+  { id: "desire-morning-15", name: "シナモンアップルティー", axis: "desire", time: "morning", caffeine: "no", tags: ["fruity", "spice"] },
+  { id: "desire-morning-16", name: "ココナッツミルク", axis: "desire", time: "morning", caffeine: "no", tags: ["sweet", "soft"] },
+  { id: "desire-afternoon-13", name: "ベリールイボス", axis: "desire", time: "afternoon", caffeine: "no", tags: ["fruity", "bright"] },
+  { id: "desire-afternoon-14", name: "白桃ソーダ", axis: "desire", time: "afternoon", caffeine: "no", tags: ["fruity", "sparkling"] },
+  { id: "desire-afternoon-15", name: "シナモンアップルティー", axis: "desire", time: "afternoon", caffeine: "no", tags: ["fruity", "spice"] },
+  { id: "desire-afternoon-16", name: "ココナッツミルク", axis: "desire", time: "afternoon", caffeine: "no", tags: ["sweet", "soft"] },
+
+  // ===== EXPANSION: UNRESOLVED =====
+  { id: "unresolved-morning-13", name: "月桃茶", axis: "unresolved", time: "morning", caffeine: "no", tags: ["herbal", "quiet"] },
+  { id: "unresolved-morning-14", name: "白ぶどうハーブ水", axis: "unresolved", time: "morning", caffeine: "no", tags: ["soft", "clear"] },
+  { id: "unresolved-morning-15", name: "薄荷ルイボス", axis: "unresolved", time: "morning", caffeine: "no", tags: ["mint", "quiet"] },
+  { id: "unresolved-morning-16", name: "温かい水出し麦茶", axis: "unresolved", time: "morning", caffeine: "no", tags: ["quiet", "familiar"] },
+  { id: "unresolved-afternoon-13", name: "月桃茶", axis: "unresolved", time: "afternoon", caffeine: "no", tags: ["herbal", "quiet"] },
+  { id: "unresolved-afternoon-14", name: "白ぶどうハーブ水", axis: "unresolved", time: "afternoon", caffeine: "no", tags: ["soft", "clear"] },
+  { id: "unresolved-afternoon-15", name: "薄荷ルイボス", axis: "unresolved", time: "afternoon", caffeine: "no", tags: ["mint", "quiet"] },
+  { id: "unresolved-afternoon-16", name: "温かい水出し麦茶", axis: "unresolved", time: "afternoon", caffeine: "no", tags: ["quiet", "familiar"] },
+];
+
+export const drinkCandidates: Drink[] = [
+  ...baseDrinkCandidates,
+  ...expansionDrinkCandidates,
 ];

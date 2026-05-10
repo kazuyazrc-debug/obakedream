@@ -11,7 +11,7 @@ describe("dream engine registry smoke test", () => {
   });
 
   it("registers batches for the current production motif total", () => {
-    expect(motifRegistry.motifs).toHaveLength(461);
+    expect(motifRegistry.motifs).toHaveLength(480);
     expect(motifRegistry.motifs.map((motif) => motif.id)).toEqual(
       expect.arrayContaining([
         "fire",
@@ -263,6 +263,15 @@ describe("dream engine registry smoke test", () => {
         "tiptoeing",
         "holding_back",
         "double_checking",
+        "airplane",
+        "sword",
+        "cave",
+        "island",
+        "volcano",
+        "crowd",
+        "whale",
+        "fox",
+        "desert",
       ]),
     );
   });

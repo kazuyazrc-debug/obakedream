@@ -96,6 +96,26 @@ describe("drinkRecommendations", () => {
     expect(morningNames.size).toBeGreaterThan(1);
   });
 
+  it("has at least 16 candidates for every axis and time bucket", () => {
+    for (const axis of ALL_AXES) {
+      const morning = drinkCandidates.filter((d) => d.axis === axis && d.time === "morning");
+      const afternoon = drinkCandidates.filter(
+        (d) => d.axis === axis && d.time === "afternoon",
+      );
+
+      expect(morning.length, `morning candidates for ${axis}`).toBeGreaterThanOrEqual(16);
+      expect(afternoon.length, `afternoon candidates for ${axis}`).toBeGreaterThanOrEqual(16);
+    }
+  });
+
+  it("does not duplicate drink ids or over-expand fruit amazake", () => {
+    const ids = drinkCandidates.map((d) => d.id);
+    const fruitAmazake = drinkCandidates.filter((d) => d.name === "フルーツ甘酒");
+
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(fruitAmazake).toHaveLength(2);
+  });
+
   it("invalid/missing axis falls back safely", () => {
     const noAxis = selectDrinkRecommendation({ seed: "test" });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -110,12 +130,12 @@ describe("drinkRecommendations", () => {
     }
   });
 
-  it("data has at least 96 morning, 96 afternoon, and 192 total candidates", () => {
+  it("data has at least 128 morning, 128 afternoon, and 256 total candidates", () => {
     const morning = drinkCandidates.filter((d) => d.time === "morning");
     const afternoon = drinkCandidates.filter((d) => d.time === "afternoon");
 
-    expect(morning.length).toBeGreaterThanOrEqual(96);
-    expect(afternoon.length).toBeGreaterThanOrEqual(96);
-    expect(drinkCandidates.length).toBeGreaterThanOrEqual(192);
+    expect(morning.length).toBeGreaterThanOrEqual(128);
+    expect(afternoon.length).toBeGreaterThanOrEqual(128);
+    expect(drinkCandidates.length).toBeGreaterThanOrEqual(256);
   });
 });
