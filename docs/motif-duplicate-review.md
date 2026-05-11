@@ -18,13 +18,13 @@ Priority categories:
 | check | result |
 |---|---|
 | motif id duplicates | none found |
-| display name duplicates | `dish` / `plate` both display as `皿` |
+| display name duplicates | none after Stage57 clarification |
 
 ## Motif Pair Review
 
 | motif pair | current issue | recommended action | risk | priority |
 |---|---|---|---|---|
-| `dish` / `plate` | Both display as `皿`; phrase overlap includes washing and tableware contexts. | Fix soon. Rename display names or clarify one as dish/tableware and one as flat plate. Add/update extraction fixture after deciding. | User-facing duplicate label and extraction ambiguity. | A |
+| `dish` / `plate` | Stage57 separated the display labels: `dish` remains broad `皿`, while `plate` is now specific `平皿`. Some tableware phrase overlap still exists by design. | Keep both. Audit tableware extraction before adding new dish/tableware motifs. | Low to medium; generic tableware scenes may still need review. | C |
 | `comment` / `sns` | `コメント欄` overlaps with SNS context. | Keep both. `comment` should be the unit of response/text; `sns` should be publicness, reaction, and social surface. | Medium; communication cluster can over-trigger. | C |
 | `notebook` / `planner` | `手帳` and `メモ帳` overlap with notebook/planner concepts. | Keep both if planner is schedule/intent and notebook is record/memo. Use phrase-level terms for schedule-specific cases. | Medium; alias overlap can choose wrong primary. | C |
 | `house` / `entrance` | `玄関` appears as house/key weak context and entrance alias. | Keep as context-helper. Entrance should be threshold/arrival; house remains whole private space. | Medium; home-place cluster is already large. | C |
@@ -49,7 +49,7 @@ adding nearby motifs:
 |---|---|---|
 | `同僚` | `friend` weak, `workplace` weak, `coworker` alias | Acceptable only if coworker has strong primary phrases. Avoid adding more broad coworker weak terms. |
 | `玄関` | `house` weak, `key` weak, `entrance` alias | Context-helper overlap. Keep entrance specific. |
-| `皿を洗う` | `kitchen` weak, `dish` phrase, `plate` phrase | Fix after `dish` / `plate` decision. |
+| `皿を洗う` | `kitchen` weak, `dish` phrase, `plate` phrase | Stage57 clarified `plate` as flat-plate-specific. Keep watching broad washing/tableware scenes. |
 | `コメント欄` | `sns` weak, `comment` alias | Keep if comment is specific and SNS remains context. Add fixture if false positives appear. |
 | `手帳` | `notebook` alias, `planner` alias | Clarify planner vs notebook before adding more record/planning motifs. |
 | `メモ帳` | `notebook` alias, `notepad` alias | Near-duplicate object terms. Hold unless extraction regressions appear. |
@@ -65,12 +65,24 @@ adding nearby motifs:
 
 ## Immediate Recommendations
 
-1. Resolve or clearly document `dish` / `plate` before adding more tableware.
+1. Treat `dish` / `plate` as clarified but still watch tableware extraction before adding more tableware.
 2. Do not add more generic aliases to communication motifs until `comment` / `sns`
    behavior is checked with extraction fixtures.
 3. Treat deferred `cemetery` as a future reviewed candidate, not as part of
    production batch-29.
 4. Keep display-name duplicates visible in review rather than silently deleting one.
+
+## Stage56 Addendum
+
+- `dish` / `plate` was resolved in Stage57 by display-name and alias-intent
+  clarification:
+  - `dish`: broad dishes/tableware, washing and meal context.
+  - `plate`: flat plate, serving and presentation context, displayed as `平皿`.
+- `batch-29` relation audit found no `general` or `stale-relation` records.
+- `cemetery` remains deferred because it is high-stimulus and should not be used
+  as a routine count-filling motif.
+- Stage58 should verify no unexpected tableware regression after the display
+  clarification.
 
 ## Deferred Cleanup
 

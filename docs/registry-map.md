@@ -1,6 +1,6 @@
 # Registry Map
 
-Last updated: 2026-05-10
+Last updated: 2026-05-11
 
 This document is the current map for the production motif registry. Historical
 stage documents are snapshots from their own stage and may mention older totals
@@ -20,13 +20,13 @@ such as 140, 160, or 400. For current implementation work, use this document and
 
 | item | value |
 |---|---:|
-| registered production batches | 29 |
-| production motif count | 480 |
-| registered production range | batch-01 through batch-29 |
+| registered production batches | 31 |
+| production motif count | 520 |
+| registered production range | batch-01 through batch-31 |
 | unregistered batch folders | none |
 | motif id duplicates in production | 0 |
-| display name duplicates found | 1 |
-| all batch-folder motif count including drafts | 480 |
+| display name duplicates found | 0 |
+| all batch-folder motif count including drafts | 520 |
 
 ## Batch Map
 
@@ -61,6 +61,8 @@ such as 140, 160, or 400. For current implementation work, use this document and
 | batch-27 | yes | 10 | action 4, life-event 3, place 1 | 10 | 10 | 10 | stage51-batch-27.test.ts | complete |
 | batch-28 | yes | 10 | animal 5, person 3, object 1 | 10 | 10 | 10 | stage53-batch-28.test.ts | complete |
 | batch-29 | yes | 9 | place 4, animal 2, object 1, person 1, vehicle 1 | 9 | 9 | 9 | stage55-batch-29.test.ts | Stage55 production completion. `cemetery` was deferred to avoid adding a high-stimulus motif as the one-item count correction. |
+| batch-30 | yes | 20 | object 7, place 4, action 4, animal 3, person 2 | 20 | 20 | 20 | stage57-batch-30.test.ts | Stage57 production expansion from 480 to 500 motifs. |
+| batch-31 | yes | 20 | object 6, place 4, action 5, animal 3, person 2 | 20 | 20 | 20 | stage62-batch-31.test.ts | Stage62 production expansion from 500 to 520 motifs. |
 
 ## Batch-29 Status
 
@@ -79,6 +81,109 @@ production. The production version contains nine motifs:
 
 The earlier draft also contained `cemetery`, but it remains deferred. Add it only
 in a future reviewed stage with careful wording, fixtures, and relation coverage.
+
+## Batch-30 Status
+
+`data/batches/batch-30/` is imported by `data/batches/index.ts` and is part of
+production. It contains the Stage57 expansion set:
+
+- `remote_control`
+- `water_bottle`
+- `toothbrush`
+- `keyhole`
+- `doormat`
+- `trash_can`
+- `refrigerator`
+- `living_room`
+- `bedroom`
+- `garage`
+- `closet`
+- `receiving`
+- `borrowing`
+- `lending`
+- `throwing_away`
+- `rabbit`
+- `frog`
+- `turtle`
+- `nurse`
+- `grandparent`
+
+Stage57 also clarified `dish` / `plate`: `dish` remains the broad display label
+`皿`, while `plate` now displays as `平皿` and uses flat-plate-specific extraction
+terms.
+
+## Stage56 Audit Note
+
+Stage56 confirmed the 480-motif production state before the next expansion:
+
+- registry total: 480
+- relation total: 1291
+- error: 0
+- warning-fix-soon: 184
+- warning-review-ok: 139
+- general count: 0
+- stale-relation: 0
+
+The detailed audit and next expansion candidate review are recorded in:
+
+- `docs/stage56-audit.md`
+- `docs/next-20-candidate-review.md`
+
+## Stage57 Expansion Note
+
+Stage57 reached the 500-motif production target:
+
+- registry total: 500
+- error: 0
+- warning-fix-soon: 184
+- relation total: 1347
+- general count: 0
+- stale-relation: 0
+
+The detailed implementation notes are recorded in:
+
+- `docs/stage57-batch-30.md`
+
+## Stage58 Audit Note
+
+Stage58 confirmed the 500-motif production state after the batch-30 expansion:
+
+- registry total: 500
+- relation total: 1347
+- error: 0
+- warning-fix-soon: 184
+- warning-review-ok: 138
+- general count: 0
+- stale-relation: 0
+
+The detailed audit is recorded in:
+
+- `docs/stage58-audit.md`
+
+## Stage61 Candidate Review Note
+
+Stage61 did not change production registry data. It reviewed the next candidate
+pool for the future 500 to 520 expansion and recorded a priority 20 plus hold
+candidates in:
+
+- `docs/stage61-next-20-candidate-review.md`
+
+## Stage62 Expansion Note
+
+Stage62 implemented the Stage61 priority 20 as `data/batches/batch-31/` and
+expanded production to 520 motifs:
+
+- registry total: 520
+- relation total: 1407
+- error: 0
+- warning-fix-soon: 184
+- warning-review-ok: 138
+- general count: 0
+- stale-relation: 0
+
+The detailed implementation notes are recorded in:
+
+- `docs/stage62-batch-31.md`
 
 ## Encoding Note
 

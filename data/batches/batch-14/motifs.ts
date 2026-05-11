@@ -255,9 +255,9 @@ export const batch14Motifs: MotifDefinition[] = [
   },
   {
     id: "plate",
-    name: "皿",
+    name: "平皿",
     category: "object",
-    basicMeaning: "皿の夢は、受け取る場、分けて並べること、目の前に出されたものを扱う感覚を表します。",
+    basicMeaning: "平皿の夢は、受け取る場、分けて並べること、目の前に出されたものを扱う感覚を表します。",
     psychologicalMeaning: "自分に差し出されたものを、どのくらい受け取るか見極めたいのかもしれません。",
     fortuneMeaning: "目の前の用件を一つずつ分けると、受け取れる量が分かりやすくなりそうです。",
     relatedEmotions: ["calm", "happy", "confused"],

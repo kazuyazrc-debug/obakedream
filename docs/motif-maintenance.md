@@ -1,6 +1,6 @@
 # Motif Maintenance Guide
 
-Last updated: 2026-05-10
+Last updated: 2026-05-11
 
 This guide is for Codex and future implementers working on motif additions or
 registry cleanup. It intentionally favors predictable, low-risk operations over
@@ -99,10 +99,13 @@ intentional one-way relations.
 
 Before adding or renaming motifs, review `docs/motif-duplicate-review.md`.
 
-Current high-priority watch item:
+Current high-priority watch items:
 
-- `dish` / `plate`: both display as `皿`, so this should be resolved or clearly
-  separated before adding more tableware motifs.
+- `dish` / `plate`: Stage57 clarified the display labels and alias intent
+  (`dish` = broad `皿`, `plate` = specific `平皿`). Keep watching tableware
+  extraction before adding new tableware motifs.
+- `cemetery`: remains deferred as a high-stimulus motif. Add only in a dedicated
+  care-risk review stage.
 
 ## Existing Notation Differences
 
@@ -139,11 +142,24 @@ Current state:
 - `batch-29` was completed as a nine-motif production batch to reach 480 motifs.
 - The earlier `cemetery` draft candidate from batch-29 remains deferred and is
   not production.
+- Stage56 completed the 480-motif light audit. Use `docs/stage56-audit.md` and
+  `docs/next-20-candidate-review.md` before starting the 480 to 500 expansion.
 
 Recommended path:
 
 - Do not silently revive deferred `cemetery` without a dedicated review.
 - Start the next production expansion from a fresh reviewed candidate list or a
   deliberately named next batch.
+- Stage57 completed the priority 20 in `docs/next-20-candidate-review.md` as
+  `data/batches/batch-30/`.
+- Stage58 audited the 500-motif state in `docs/stage58-audit.md`.
+- Stage59/60 completed the mobile floating-ghost UI adjustment and QA in
+  `docs/stage60-mobile-ghost-qa.md`; those stages did not change registry data.
+- Stage61 reviewed the next candidate pool in
+  `docs/stage61-next-20-candidate-review.md`; it did not add motifs.
+- Stage62 implemented that priority 20 as `data/batches/batch-31/` and reached
+  520 production motifs. See `docs/stage62-batch-31.md`.
+- Before the next registry expansion, review the large `object-record`,
+  `emotion-action`, `relationship`, and `home-place` clusters.
 - Whichever path is chosen, update `docs/registry-map.md` before and after the
   implementation.

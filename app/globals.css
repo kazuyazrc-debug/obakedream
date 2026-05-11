@@ -122,6 +122,10 @@ label {
   animation-delay: 12s;
 }
 
+.floating-ghost--d {
+  display: none;
+}
+
 @keyframes ghost-drift-a {
   0%,
   8% {
@@ -222,6 +226,60 @@ label {
 
   100% {
     transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes ghost-mobile-float-a {
+  0%,
+  100% {
+    opacity: 0.24;
+    transform: translate3d(0, 0, 0);
+  }
+
+  35% {
+    opacity: 0.33;
+    transform: translate3d(-0.7rem, -1.1rem, 0);
+  }
+
+  70% {
+    opacity: 0.27;
+    transform: translate3d(0.4rem, 0.45rem, 0);
+  }
+}
+
+@keyframes ghost-mobile-float-b {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: translate3d(0, 0, 0);
+  }
+
+  40% {
+    opacity: 0.3;
+    transform: translate3d(0.8rem, -0.8rem, 0);
+  }
+
+  75% {
+    opacity: 0.23;
+    transform: translate3d(-0.3rem, 0.6rem, 0);
+  }
+}
+
+@keyframes ghost-mobile-float-c {
+  0%,
+  100% {
+    opacity: 0.22;
+    transform: translate3d(0, 0, 0);
+  }
+
+  30% {
+    opacity: 0.31;
+    transform: translate3d(-0.35rem, 0.8rem, 0);
+  }
+
+  68% {
+    opacity: 0.25;
+    transform: translate3d(0.7rem, -0.7rem, 0);
   }
 }
 
@@ -777,17 +835,58 @@ label {
 }
 
 @media (max-width: 640px) {
-  .floating-ghost--a,
-  .floating-ghost--c {
-    display: none;
+  .floating-ghost-layer {
+    z-index: 5;
+  }
+
+  .floating-ghost {
+    width: 2.45rem;
+    opacity: 0.32;
+  }
+
+  .floating-ghost--a {
+    display: block;
+    top: 5vh;
+    right: 3vw;
+    bottom: auto;
+    --ghost-visible-opacity: 0.38;
+    animation: ghost-mobile-float-a 38s ease-in-out infinite;
+    animation-delay: -7s;
   }
 
   .floating-ghost--b {
-    top: 6vh;
+    display: block;
+    top: 23vh;
+    left: 2vw;
+    width: 2.25rem;
+    --ghost-visible-opacity: 0.32;
+    animation: ghost-mobile-float-b 42s ease-in-out infinite;
+    animation-delay: -17s;
+  }
+
+  .floating-ghost--c {
+    display: block;
+    right: 2vw;
+    top: auto;
+    bottom: 28vh;
     width: 2.5rem;
-    --ghost-visible-opacity: 0.2;
-    animation-duration: 38s;
-    animation-delay: 8s;
+    --ghost-visible-opacity: 0.34;
+    animation: ghost-mobile-float-c 40s ease-in-out infinite;
+    animation-delay: -23s;
+  }
+
+  .floating-ghost--d {
+    display: block;
+    left: 3vw;
+    bottom: 8vh;
+    width: 2.15rem;
+    --ghost-visible-opacity: 0.28;
+    animation: ghost-mobile-float-a 44s ease-in-out infinite reverse;
+    animation-delay: -31s;
+  }
+
+  .floating-ghost__image {
+    animation-duration: 11s;
   }
 
   .primary-button,

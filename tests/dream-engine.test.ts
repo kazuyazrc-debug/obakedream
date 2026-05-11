@@ -11,7 +11,7 @@ describe("dream engine registry smoke test", () => {
   });
 
   it("registers batches for the current production motif total", () => {
-    expect(motifRegistry.motifs).toHaveLength(480);
+    expect(motifRegistry.motifs).toHaveLength(520);
     expect(motifRegistry.motifs.map((motif) => motif.id)).toEqual(
       expect.arrayContaining([
         "fire",
@@ -272,6 +272,46 @@ describe("dream engine registry smoke test", () => {
         "whale",
         "fox",
         "desert",
+        "remote_control",
+        "water_bottle",
+        "toothbrush",
+        "keyhole",
+        "doormat",
+        "trash_can",
+        "refrigerator",
+        "living_room",
+        "bedroom",
+        "garage",
+        "closet",
+        "receiving",
+        "borrowing",
+        "lending",
+        "throwing_away",
+        "rabbit",
+        "frog",
+        "turtle",
+        "nurse",
+        "grandparent",
+        "microwave",
+        "kettle",
+        "laundry_basket",
+        "charging_cable",
+        "shampoo_bottle",
+        "bus_stop",
+        "bakery",
+        "deer",
+        "squirrel",
+        "returning",
+        "mirror_cabinet",
+        "post_office",
+        "playground",
+        "buying",
+        "paying",
+        "asking",
+        "answering",
+        "bee",
+        "cousin",
+        "coach",
       ]),
     );
   });

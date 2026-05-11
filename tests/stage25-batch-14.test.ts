@@ -16,7 +16,6 @@ const forbiddenStage25Ids = [
   "wound",
   "secret",
   "message",
-  "bedroom",
   "bathroom",
   "medicine",
   "meeting",

@@ -87,9 +87,9 @@ export const batch14Aliases: MotifLexiconEntry[] = [
   },
   {
     motifId: "plate",
-    aliases: ["皿の夢", "白い皿", "丸い皿", "食卓の皿"],
-    priorityKeywords: ["皿に置く", "皿に盛る", "皿を洗う", "皿を並べる", "皿とスプーンを見る"],
-    secondaryKeywords: ["受け取る場", "分けて並べる器", "目の前に出されたもの", "食卓の受け皿"],
+    aliases: ["平皿の夢", "白い平皿", "丸い平皿", "食卓の平皿"],
+    priorityKeywords: ["平皿に置く", "平皿に盛る", "盛り皿を見る", "料理を平皿に分ける", "平皿とスプーンを見る"],
+    secondaryKeywords: ["受け取る平たい器", "分けて並べる平皿", "目の前に出された平皿", "食卓の平たい受け皿"],
   },
   {
     motifId: "lamp",

@@ -454,6 +454,46 @@ const priorityClusterIds = new Set([
   "whale",
   "fox",
   "desert",
+  "remote_control",
+  "water_bottle",
+  "toothbrush",
+  "keyhole",
+  "doormat",
+  "trash_can",
+  "refrigerator",
+  "living_room",
+  "bedroom",
+  "garage",
+  "closet",
+  "receiving",
+  "borrowing",
+  "lending",
+  "throwing_away",
+  "rabbit",
+  "frog",
+  "turtle",
+  "nurse",
+  "grandparent",
+  "microwave",
+  "kettle",
+  "laundry_basket",
+  "charging_cable",
+  "shampoo_bottle",
+  "bus_stop",
+  "bakery",
+  "deer",
+  "squirrel",
+  "returning",
+  "mirror_cabinet",
+  "post_office",
+  "playground",
+  "buying",
+  "paying",
+  "asking",
+  "answering",
+  "bee",
+  "cousin",
+  "coach",
 ]);
 
 const genericSpecificGroups = [
@@ -709,6 +749,45 @@ const genericSpecificGroups = [
   ["whale", "sea", "water", "fish"],
   ["fox", "forest", "shrine", "dark"],
   ["desert", "sand", "road", "sun"],
+  ["remote_control", "television", "video", "choosing"],
+  ["water_bottle", "water", "bag", "travel"],
+  ["toothbrush", "teeth", "washing", "morning"],
+  ["keyhole", "key", "door", "entrance"],
+  ["doormat", "entrance", "house", "shoes"],
+  ["trash_can", "cleaning", "tidying", "throwing_away"],
+  ["refrigerator", "kitchen", "cooking", "storage_room"],
+  ["living_room", "house", "television", "family"],
+  ["bedroom", "sleep", "blanket", "pillow"],
+  ["garage", "car", "house", "storage_room"],
+  ["closet", "clothes", "hiding", "storage_room"],
+  ["receiving", "handing_over", "gift", "letter"],
+  ["borrowing", "lending", "receiving", "handing_over"],
+  ["throwing_away", "tidying", "cleaning", "trash_can"],
+  ["rabbit", "child", "family", "grass"],
+  ["frog", "rain", "pond", "water"],
+  ["turtle", "water", "pond", "shell"],
+  ["nurse", "hospital", "injury", "hand"],
+  ["grandparent", "family", "ancestor", "past"],
+  ["microwave", "kitchen", "cooking", "waiting"],
+  ["kettle", "kitchen", "water", "fire"],
+  ["laundry_basket", "washing", "clothes", "tidying"],
+  ["charging_cable", "charging", "smartphone", "battery_icon"],
+  ["shampoo_bottle", "hair", "washing", "toilet"],
+  ["bus_stop", "bus", "waiting", "road"],
+  ["bakery", "shop", "morning", "buying"],
+  ["deer", "forest", "shrine", "grass"],
+  ["squirrel", "tree", "park", "concealing"],
+  ["returning", "borrowing", "lending", "apologizing"],
+  ["mirror_cabinet", "mirror", "makeup", "hair"],
+  ["post_office", "letter", "receiving", "waiting"],
+  ["playground", "child", "park", "family"],
+  ["buying", "shop", "wallet", "choosing"],
+  ["paying", "wallet", "money", "shop"],
+  ["asking", "voice", "chat", "teacher"],
+  ["answering", "voice", "exam", "phone"],
+  ["bee", "insect", "flower", "workplace"],
+  ["cousin", "family", "childhood_home", "grandparent"],
+  ["coach", "teacher", "mentor", "boss"],
 ];
 
 const reciprocalCandidateGroups = [
@@ -1030,6 +1109,45 @@ const reciprocalCandidateGroups = [
   ["whale", "sea", "water", "fish"],
   ["fox", "forest", "shrine", "dark"],
   ["desert", "sand", "road", "sun"],
+  ["remote_control", "television", "video", "choosing"],
+  ["water_bottle", "water", "bag", "travel"],
+  ["toothbrush", "teeth", "washing", "morning"],
+  ["keyhole", "key", "door", "entrance"],
+  ["doormat", "entrance", "house", "shoes"],
+  ["trash_can", "cleaning", "tidying", "throwing_away"],
+  ["refrigerator", "kitchen", "cooking", "storage_room"],
+  ["living_room", "house", "television", "family"],
+  ["bedroom", "sleep", "blanket", "pillow"],
+  ["garage", "car", "house", "storage_room"],
+  ["closet", "clothes", "hiding", "storage_room"],
+  ["receiving", "handing_over", "gift", "letter"],
+  ["borrowing", "lending", "receiving", "handing_over"],
+  ["throwing_away", "tidying", "cleaning", "trash_can"],
+  ["rabbit", "child", "family", "grass"],
+  ["frog", "rain", "pond", "water"],
+  ["turtle", "water", "pond", "shell"],
+  ["nurse", "hospital", "injury", "hand"],
+  ["grandparent", "family", "ancestor", "past"],
+  ["microwave", "kitchen", "cooking", "waiting"],
+  ["kettle", "kitchen", "water", "fire"],
+  ["laundry_basket", "washing", "clothes", "tidying"],
+  ["charging_cable", "charging", "smartphone", "battery_icon"],
+  ["shampoo_bottle", "hair", "washing", "toilet"],
+  ["bus_stop", "bus", "waiting", "road"],
+  ["bakery", "shop", "morning", "buying"],
+  ["deer", "forest", "shrine", "grass"],
+  ["squirrel", "tree", "park", "concealing"],
+  ["returning", "borrowing", "lending", "apologizing"],
+  ["mirror_cabinet", "mirror", "makeup", "hair"],
+  ["post_office", "letter", "receiving", "waiting"],
+  ["playground", "child", "park", "family"],
+  ["buying", "shop", "wallet", "choosing"],
+  ["paying", "wallet", "money", "shop"],
+  ["asking", "voice", "chat", "teacher"],
+  ["answering", "voice", "exam", "phone"],
+  ["bee", "insect", "flower", "workplace"],
+  ["cousin", "family", "childhood_home", "grandparent"],
+  ["coach", "teacher", "mentor", "boss"],
 ];
 
 const conflictCandidatePairs = new Set([
@@ -1062,15 +1180,15 @@ function detectRelationType(source: MotifDefinition, targetId: string): Relation
 export function classifyRelationCluster(sourceId: string, targetId: string): RelationPriorityCluster {
   const ids = new Set([sourceId, targetId]);
 
-  if ([...ids].some((id) => ["water", "sea", "rain", "river", "snow", "thunder", "wind", "fish", "whale", "cloud", "rainbow", "lake", "pond", "fog", "wave", "ice", "swimming", "soap", "towel", "washing", "shell", "dew", "raindrop", "waterweed", "driftwood", "earthquake", "tsunami", "storm", "flood"].includes(id))) {
+  if ([...ids].some((id) => ["water", "sea", "rain", "river", "snow", "thunder", "wind", "fish", "whale", "frog", "turtle", "kettle", "cloud", "rainbow", "lake", "pond", "fog", "wave", "ice", "swimming", "soap", "towel", "washing", "shampoo_bottle", "shell", "dew", "raindrop", "waterweed", "driftwood", "earthquake", "tsunami", "storm", "flood"].includes(id))) {
     return "water-weather";
   }
 
-  if ([...ids].some((id) => ["house", "childhood_home", "hotel", "key", "toilet", "mirror", "shrine", "shop", "library", "park", "door", "restaurant", "cafe", "convenience_store", "cinema", "window", "cave", "island", "rooftop", "hot_spring", "kitchen", "garden", "hallway", "balcony", "entrance", "storage_room", "power_outage", "moving_house", "prison"].includes(id))) {
+  if ([...ids].some((id) => ["house", "childhood_home", "hotel", "key", "toilet", "mirror", "shrine", "shop", "library", "park", "door", "restaurant", "cafe", "convenience_store", "cinema", "window", "cave", "island", "living_room", "bedroom", "garage", "closet", "bakery", "post_office", "playground", "mirror_cabinet", "rooftop", "hot_spring", "kitchen", "garden", "hallway", "balcony", "entrance", "doormat", "storage_room", "power_outage", "moving_house", "prison"].includes(id))) {
     return "home-place";
   }
 
-  if ([...ids].some((id) => ["station", "train", "bus", "car", "airport", "airplane", "travel", "road", "bridge", "stairs", "elevator", "ship", "parking_lot", "map", "ticket", "crossroad", "maze", "bicycle", "climbing", "ladder", "compass", "suitcase", "footprint", "backpack", "dead_end", "traffic_light", "crosswalk", "detour", "turn_back", "sidewalk", "escalator", "platform_edge", "lost_ticket", "pedestrian_bridge", "ticket_gate", "platform_sign", "ticket_machine", "departure_board", "platform_clock", "station_map", "route_sign"].includes(id))) {
+  if ([...ids].some((id) => ["station", "train", "bus", "bus_stop", "car", "airport", "airplane", "travel", "road", "bridge", "stairs", "elevator", "ship", "parking_lot", "map", "ticket", "crossroad", "maze", "bicycle", "climbing", "ladder", "compass", "suitcase", "footprint", "backpack", "dead_end", "traffic_light", "crosswalk", "detour", "turn_back", "sidewalk", "escalator", "platform_edge", "lost_ticket", "pedestrian_bridge", "ticket_gate", "platform_sign", "ticket_machine", "departure_board", "platform_clock", "station_map", "route_sign"].includes(id))) {
     return "movement";
   }
 
@@ -1078,7 +1196,7 @@ export function classifyRelationCluster(sourceId: string, targetId: string): Rel
     return "communication";
   }
 
-  if ([...ids].some((id) => ["friend", "family", "stranger", "crowd", "ex_partner", "crush", "breakup", "ring", "boss", "workplace", "child", "teacher", "neighbor", "coworker", "classmate", "partner", "rival", "senior", "junior", "relative", "roommate", "customer", "guide", "ancestor", "mentor", "teammate", "bully", "client", "old_friend", "childhood_friend", "leader", "subordinate", "shop_clerk", "guest", "rescuer", "judge", "witness", "captain", "former_classmate", "former_coworker", "online_friend", "police_officer", "admirer", "driver", "landlord", "mediator", "being_fired", "resignation", "wedding", "argument", "reunion", "promotion", "interview", "confession", "betrayal", "divorce", "angel", "god", "demon"].includes(id))) {
+  if ([...ids].some((id) => ["friend", "family", "stranger", "crowd", "ex_partner", "crush", "breakup", "ring", "boss", "workplace", "child", "teacher", "neighbor", "coworker", "classmate", "nurse", "grandparent", "cousin", "coach", "partner", "rival", "senior", "junior", "relative", "roommate", "customer", "guide", "ancestor", "mentor", "teammate", "bully", "client", "old_friend", "childhood_friend", "leader", "subordinate", "shop_clerk", "guest", "rescuer", "judge", "witness", "captain", "former_classmate", "former_coworker", "online_friend", "police_officer", "admirer", "driver", "landlord", "mediator", "being_fired", "resignation", "wedding", "argument", "reunion", "promotion", "interview", "confession", "betrayal", "divorce", "angel", "god", "demon"].includes(id))) {
     return "relationship";
   }
 
@@ -1086,19 +1204,19 @@ export function classifyRelationCluster(sourceId: string, targetId: string): Rel
     return "body-appearance";
   }
 
-  if ([...ids].some((id) => ["crying", "laughing", "apologizing", "being_chased", "fighting", "hiding", "searching", "waiting", "lost", "picking_up", "choosing", "opening", "screaming", "forgetting", "running", "cleaning", "tidying", "losing", "handing_over", "embracing", "being_late", "exam", "sleep", "breaking", "making_mistake", "refusing", "lining_up", "tripping", "inviting", "concealing", "cooking", "festival", "writing", "dancing", "packing", "folding", "carrying", "singing", "reading", "tying", "wiping", "wrapping", "unpacking", "carving", "footsteps", "hesitating", "backing_away", "flinching", "tiptoeing", "holding_back", "double_checking", "being_trapped", "paralysis", "transformation", "pregnancy", "graduation", "ghost", "presentation", "apology", "giving_birth"].includes(id))) {
+  if ([...ids].some((id) => ["crying", "laughing", "apologizing", "being_chased", "fighting", "hiding", "searching", "waiting", "lost", "picking_up", "choosing", "opening", "screaming", "forgetting", "running", "cleaning", "tidying", "losing", "handing_over", "receiving", "borrowing", "lending", "returning", "buying", "paying", "asking", "answering", "throwing_away", "embracing", "being_late", "exam", "sleep", "breaking", "making_mistake", "refusing", "lining_up", "tripping", "inviting", "concealing", "cooking", "festival", "writing", "dancing", "packing", "folding", "carrying", "singing", "reading", "tying", "wiping", "wrapping", "unpacking", "carving", "footsteps", "hesitating", "backing_away", "flinching", "tiptoeing", "holding_back", "double_checking", "being_trapped", "paralysis", "transformation", "pregnancy", "graduation", "ghost", "presentation", "apology", "giving_birth"].includes(id))) {
     return "emotion-action";
   }
 
-  if ([...ids].some((id) => ["sky", "moon", "sun", "stars", "bird", "flying", "forest", "mountain", "volcano", "flower", "tree", "insect", "horse", "sand", "desert", "stone", "dark", "morning", "evening", "shadow", "leaf", "grass", "seed", "feather", "nest", "pebble", "maple_leaf", "pinecone", "acorn", "mushroom", "fern", "twig", "moss", "petal", "dust", "stain", "clover", "dandelion", "sprout", "bark", "vine", "root", "bud", "wildflower", "lichen", "reed", "pine_needle", "berry", "daisy", "willow", "lotus", "butterfly", "dragonfly", "owl", "camellia", "ivy", "firefly", "lily_pad", "sparrow", "dragon", "lion", "spider", "bear", "wolf", "fox"].includes(id))) {
+  if ([...ids].some((id) => ["sky", "moon", "sun", "stars", "bird", "flying", "forest", "mountain", "volcano", "flower", "tree", "insect", "horse", "sand", "desert", "stone", "dark", "morning", "evening", "shadow", "leaf", "grass", "seed", "feather", "nest", "pebble", "maple_leaf", "pinecone", "acorn", "mushroom", "fern", "twig", "moss", "petal", "dust", "stain", "clover", "dandelion", "sprout", "bark", "vine", "root", "bud", "wildflower", "lichen", "reed", "pine_needle", "berry", "daisy", "willow", "lotus", "butterfly", "dragonfly", "owl", "camellia", "ivy", "firefly", "lily_pad", "sparrow", "dragon", "lion", "spider", "bear", "wolf", "fox", "rabbit", "deer", "squirrel", "bee"].includes(id))) {
     return "nature-sky";
   }
 
-  if ([...ids].some((id) => ["photo", "clock", "wallet", "bag", "umbrella", "shoes", "book", "notebook", "box", "desk", "chair", "calendar", "past", "news", "game", "pen", "dish", "shelf", "gift", "planner", "cup", "candle", "blanket", "envelope", "scissors", "sword", "toy", "pillow", "rope", "painting", "button", "coin", "ribbon", "lantern", "drawer", "thread", "stamp", "clay", "bead", "spoon", "blank_page", "knot", "postcard", "basket", "jar", "bench", "curtain", "chalk", "tray", "needle", "paintbrush", "plate", "lamp", "string", "marble", "bucket", "broom", "bowl", "pencil", "bookmark", "shoelace", "zipper", "apron", "ticket_stub", "paint", "keychain", "pocket", "eraser", "ruler", "paperclip", "coaster", "handkerchief", "bell", "ink", "torn_paper", "answer_sheet", "keyboard", "monitor", "glue", "tape", "label", "folder", "receipt", "magnifying_glass", "clipboard", "stapler", "calendar_page", "rubber_band", "binder", "index_card", "coupon", "pencil_case", "checklist", "progress_bar", "loading_icon", "wristwatch", "rubber_stamp", "notepad", "sticky_note", "paper_cup", "file_tab", "pause_button", "status_light", "screen_corner", "name_tag", "paper_crane", "paper_bag", "coin_purse", "corkboard", "measuring_tape", "ink_pad", "cursor", "battery_icon", "mute_button", "binder_clip", "sketchbook", "stamp_sheet", "hourglass", "paperweight", "search_bar", "signal_bar", "volume_slider", "treasure", "money"].includes(id))) {
+  if ([...ids].some((id) => ["photo", "clock", "wallet", "bag", "umbrella", "shoes", "book", "notebook", "box", "desk", "chair", "calendar", "past", "news", "game", "pen", "dish", "shelf", "gift", "planner", "cup", "candle", "blanket", "envelope", "scissors", "sword", "toy", "pillow", "rope", "painting", "button", "coin", "ribbon", "lantern", "drawer", "thread", "stamp", "clay", "bead", "spoon", "blank_page", "knot", "postcard", "basket", "jar", "bench", "curtain", "chalk", "tray", "needle", "paintbrush", "plate", "lamp", "string", "marble", "bucket", "broom", "bowl", "pencil", "bookmark", "shoelace", "zipper", "apron", "ticket_stub", "paint", "keychain", "pocket", "eraser", "ruler", "paperclip", "coaster", "handkerchief", "bell", "ink", "torn_paper", "answer_sheet", "keyboard", "monitor", "glue", "tape", "label", "folder", "receipt", "magnifying_glass", "clipboard", "stapler", "calendar_page", "rubber_band", "binder", "index_card", "coupon", "pencil_case", "checklist", "progress_bar", "loading_icon", "wristwatch", "rubber_stamp", "notepad", "sticky_note", "paper_cup", "file_tab", "pause_button", "status_light", "screen_corner", "name_tag", "paper_crane", "paper_bag", "coin_purse", "corkboard", "measuring_tape", "ink_pad", "cursor", "battery_icon", "mute_button", "binder_clip", "sketchbook", "stamp_sheet", "hourglass", "paperweight", "search_bar", "signal_bar", "volume_slider", "remote_control", "water_bottle", "toothbrush", "keyhole", "trash_can", "refrigerator", "microwave", "kettle", "laundry_basket", "charging_cable", "shampoo_bottle", "mirror_cabinet", "treasure", "money"].includes(id))) {
     return "object-record";
   }
 
-  if ([...ids].some((id) => ["hospital", "injury", "blood", "death", "fire", "accident", "surgery", "funeral", "war"].includes(id))) {
+  if ([...ids].some((id) => ["hospital", "nurse", "injury", "blood", "death", "fire", "accident", "surgery", "funeral", "war"].includes(id))) {
     return "care-risk";
   }
 

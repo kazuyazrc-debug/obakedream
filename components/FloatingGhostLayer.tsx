@@ -13,6 +13,10 @@ const floatingGhosts = [
     className: "floating-ghost floating-ghost--c",
     src: "/assets/ghost/ghost_down_right_96.png",
   },
+  {
+    className: "floating-ghost floating-ghost--d",
+    src: "/assets/ghost/ghost_up_right_96.png",
+  },
 ] as const;
 
 export function FloatingGhostLayer() {

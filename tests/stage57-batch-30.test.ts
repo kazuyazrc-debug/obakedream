@@ -4,37 +4,32 @@ import { composeInterpretation, extractMotifs, findMotifsByIds, selectFollowUpQu
 import { buildRelationReviewRecords, summarizeRelationReview } from "@/lib/dream-engine/rules/relationReview";
 import { summarizeRegistryIssues, validateMotifRegistry } from "@/lib/dream-engine/rules/validateRegistry";
 import {
-  batch29DeferredMotifIds,
-  batch29MotifIds,
-  stage55ExtractionAuditCases,
-  stage55RepresentativeDreams,
-} from "./fixtures/stage55";
+  batch30MotifIds,
+  stage57ExtractionAuditCases,
+  stage57RepresentativeDreams,
+} from "./fixtures/stage57";
 
-describe("Stage55 batch-29", () => {
-  it("registers nine production motifs and keeps cemetery deferred", () => {
+describe("Stage57 batch-30", () => {
+  it("registers the Stage57 batch and reaches 500 production motifs", () => {
     const motifIds = motifRegistry.motifs.map((motif) => motif.id);
 
-    expect(motifRegistry.motifs.length).toBeGreaterThanOrEqual(480);
-    expect(motifIds).toEqual(expect.arrayContaining(batch29MotifIds));
-    expect(batch29MotifIds).toHaveLength(9);
-
-    for (const deferredMotifId of batch29DeferredMotifIds) {
-      expect(motifIds).not.toContain(deferredMotifId);
-    }
+    expect(motifRegistry.motifs.length).toBeGreaterThanOrEqual(500);
+    expect(motifIds).toEqual(expect.arrayContaining(batch30MotifIds));
+    expect(batch30MotifIds).toHaveLength(20);
   });
 
-  it("keeps registry warning gates stable after batch-29 addition", () => {
+  it("keeps registry warning gates stable after the 500 motif expansion", () => {
     const summary = summarizeRegistryIssues(validateMotifRegistry());
 
     expect(summary.error).toBe(0);
-    expect(summary["warning-fix-soon"]).toBeLessThanOrEqual(188);
+    expect(summary["warning-fix-soon"]).toBeLessThanOrEqual(184);
   });
 
-  it("keeps batch-29 relations classified outside general and stale buckets", () => {
+  it("keeps batch-30 relations classified outside general and stale buckets", () => {
     const records = buildRelationReviewRecords().filter(
       (record) =>
-        batch29MotifIds.includes(record.sourceId as (typeof batch29MotifIds)[number]) ||
-        batch29MotifIds.includes(record.targetId as (typeof batch29MotifIds)[number]),
+        batch30MotifIds.includes(record.sourceId as (typeof batch30MotifIds)[number]) ||
+        batch30MotifIds.includes(record.targetId as (typeof batch30MotifIds)[number]),
     );
     const summary = summarizeRelationReview(buildRelationReviewRecords());
 
@@ -45,7 +40,15 @@ describe("Stage55 batch-29", () => {
     expect(summary.byKind["stale-relation"]).toBe(0);
   });
 
-  it.each(stage55ExtractionAuditCases)("extracts documented Stage55 audit case $id", (auditCase) => {
+  it("clarifies dish and plate display names before further tableware additions", () => {
+    const dish = motifRegistry.motifs.find((motif) => motif.id === "dish");
+    const plate = motifRegistry.motifs.find((motif) => motif.id === "plate");
+
+    expect(dish?.name).toBe("皿");
+    expect(plate?.name).toBe("平皿");
+  });
+
+  it.each(stage57ExtractionAuditCases)("extracts documented Stage57 audit case $id", (auditCase) => {
     const motifIds = extractMotifs(auditCase.text).map((candidate) => candidate.motif.id);
     const topSixMotifIds = motifIds.slice(0, 6);
 
@@ -60,7 +63,7 @@ describe("Stage55 batch-29", () => {
     }
   });
 
-  it.each(stage55RepresentativeDreams)("keeps Stage55 representative dream behavior for $id", (fixture) => {
+  it.each(stage57RepresentativeDreams)("keeps Stage57 representative dream behavior for $id", (fixture) => {
     const motifIds = extractMotifs(fixture.input.text).map((candidate) => candidate.motif.id);
     const motifs = findMotifsByIds(fixture.selectedMotifIds);
     const questions = selectFollowUpQuestions(motifs, 5);
